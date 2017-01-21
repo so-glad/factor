@@ -42,7 +42,7 @@ ALTER SEQUENCE basics.table_cooperator_id_seq OWNER TO soglad;
 
 CREATE TABLE basics.cooperator
 (
-    id bigint NOT NULL DEFAULT generate_id('cooperator'::character varying),
+    id bigint NOT NULL DEFAULT basics.generate_id('cooperator'::character varying),
     name character varying(255) NOT NULL,
     code character varying(255),
     enabled boolean NOT NULL DEFAULT true,
@@ -66,7 +66,7 @@ ALTER SEQUENCE basics.table_group_id_seq OWNER TO soglad;
 
 CREATE TABLE basics."group"
 (
-    id bigint NOT NULL DEFAULT generate_id('group'::character varying),
+    id bigint NOT NULL DEFAULT basics.generate_id('group'::character varying),
     name character varying(255) COLLATE pg_catalog."default",
     code character varying(255) COLLATE pg_catalog."default",
     enabled boolean NOT NULL DEFAULT true,
@@ -93,7 +93,7 @@ ALTER SEQUENCE basics.table_member_id_seq OWNER TO soglad;
 
 CREATE TABLE basics.member
 (
-    id bigint NOT NULL DEFAULT generate_id('member'::character varying),
+    id bigint NOT NULL DEFAULT basics.generate_id('member'::character varying),
     username character varying(255) COLLATE pg_catalog."default",
     password character varying(255) COLLATE pg_catalog."default",
     salt character varying(255) COLLATE pg_catalog."default",
@@ -125,7 +125,7 @@ ALTER SEQUENCE basics.table_role_id_seq OWNER TO soglad;
 
 CREATE TABLE basics.role
 (
-    id bigint NOT NULL DEFAULT generate_id('role'::character varying),
+    id bigint NOT NULL DEFAULT basics.generate_id('role'::character varying),
     name character varying(255) COLLATE pg_catalog."default",
     code character varying(255) COLLATE pg_catalog."default",
     enabled boolean NOT NULL DEFAULT true,
@@ -152,7 +152,7 @@ ALTER SEQUENCE basics.table_supplier_id_seq OWNER TO soglad;
 
 CREATE TABLE basics.supplier
 (
-    id bigint NOT NULL DEFAULT generate_id('supplier'::character varying),
+    id bigint NOT NULL DEFAULT basics.generate_id('supplier'::character varying),
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     code character varying(255) COLLATE pg_catalog."default",
     enabled boolean NOT NULL DEFAULT true,
@@ -176,7 +176,7 @@ ALTER SEQUENCE basics.table_staff_id_seq OWNER TO soglad;
 
 CREATE TABLE basics.staff
 (
-    id bigint NOT NULL DEFAULT generate_id('staff'::character varying),
+    id bigint NOT NULL DEFAULT basics.generate_id('staff'::character varying),
     username character varying(255) COLLATE pg_catalog."default",
     password character varying(255) COLLATE pg_catalog."default",
     salt character varying(255) COLLATE pg_catalog."default",

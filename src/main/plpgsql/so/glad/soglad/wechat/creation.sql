@@ -1,7 +1,7 @@
 -- SCHEMA: wechat
 
 -- DROP SCHEMA wechat ;
-DECLARE wechat_account character varying;
+-- Required to replace '_test' as you wechat account name 
 CREATE SCHEMA wechat AUTHORIZATION soglad;
 
 -- FUNCTION: wechat.generate_id(character varying)
@@ -55,7 +55,7 @@ WITH (OIDS = FALSE) TABLESPACE soglad;
 ALTER TABLE wechat.user_info OWNER to soglad;
 
 
-CREATE TABLE wechat.user_
+CREATE TABLE IF NOT EXISTS wechat.user_test
 (
     openid character varying(255) NOT NULL,
     member_id bigint,
@@ -70,52 +70,81 @@ CREATE TABLE wechat.user_
     subscribe_time timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT user__pkey PRIMARY KEY (openid),
-    CONSTRAINT user__member_id_unique UNIQUE (member_id),
-    CONSTRAINT user__unionid_unique UNIQUE (unionid)
+    CONSTRAINT user_test_pkey PRIMARY KEY (openid),
+    CONSTRAINT user_test_member_id_unique UNIQUE (member_id),
+    CONSTRAINT user_test_unionid_unique UNIQUE (unionid)
 )
 WITH (OIDS = FALSE) TABLESPACE soglad;
 
-ALTER TABLE wechat.user_ OWNER to soglad;
+ALTER TABLE wechat.user_test OWNER to soglad;
 
-CREATE SEQUENCE wechat.table_media__id_seq
+CREATE SEQUENCE wechat.table_media_test_id_seq
     INCREMENT 1 START 1 MINVALUE 1
     MAXVALUE 999999999999999999 CACHE 1;
 
-ALTER SEQUENCE wechat.table_media__id_seq OWNER TO soglad;
+ALTER SEQUENCE wechat.table_media_test_id_seq OWNER TO soglad;
 
-CREATE TYPE wechat.mediatype AS ENUM ('Image', 'Audio', 'Vedio');
+CREATE TYPE wechat.mediatype AS ENUM ('image', 'voice', 'vedio', 'news');
 ALTER TYPE wechat.mediatype OWNER TO soglad;
 
-CREATE TABLE wechat.media_
+CREATE TABLE IF NOT EXISTS wechat.media_test
 (
-	id bigint NOT NULL DEFAULT generate_id('cooperator'::character varying),
-	type wechat.mediatype default 'Image',
+	id bigint NOT NULL DEFAULT wechat.generate_id('media_test'::character varying),
+	type wechat.mediatype default 'image',
     media_id character varying(255) not null,
-    for_schema_table character varying(255),
+    for_using character varying(255),
     for_id character varying(255),
+    comment character varying(255),
+    time_range daterange default null,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT media__pkey PRIMARY KEY (id),
-    CONSTRAINT media__for_unique UNIQUE (for_schema_table, for_id)
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
+    CONSTRAINT media_test_pkey PRIMARY KEY (id),
+    CONSTRAINT media_test_id_unique UNIQUE (media_id),
+    CONSTRAINT media_test_for_unique UNIQUE (for_using, for_id)
+) WITH (OIDS = FALSE) TABLESPACE soglad;
 
-ALTER TABLE wechat.media_ OWNER to soglad;
+ALTER TABLE wechat.media_test OWNER to soglad;
 
-CREATE SEQUENCE wechat.table_scene__id_seq
+CREATE SEQUENCE wechat.table_news_test_id_seq
     INCREMENT 1 START 1 MINVALUE 1
     MAXVALUE 999999999999999999 CACHE 1;
 
-ALTER SEQUENCE wechat.table_scene__id_seq OWNER TO soglad;
+ALTER SEQUENCE wechat.table_news_test_id_seq OWNER TO soglad;
 
-CREATE TYPE wechat.scenetype AS ENUM ('Openid', 'Cooperator');
+CREATE TABLE IF NOT EXISTS wechat.news_test 
+(
+    id bigint NOT NULL DEFAULT wechat.generate_id('news_test'::character varying),
+    thumb_media_id character varying(255),
+    thumb_url character varying(255),
+    media_id character varying(255),
+    url character varying(255),
+    digest character varying(255),
+    title character varying(255),
+    author character varying(255),
+    content text,
+    content_source_url character varying(255),
+    show_cover_pic boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    CONSTRAINT news_test_pkey PRIMARY KEY (id),
+    CONSTRAINT news_test_media_unique UNIQUE (media_id)
+)WITH (OIDS = FALSE) TABLESPACE soglad;
+
+ALTER TABLE wechat.news_test OWNER to soglad;
+
+CREATE SEQUENCE wechat.table_scene_test_id_seq
+    INCREMENT 1 START 1 MINVALUE 1
+    MAXVALUE 999999999999999999 CACHE 1;
+
+ALTER SEQUENCE wechat.table_scene_test_id_seq OWNER TO soglad;
+
+CREATE TYPE wechat.scenetype AS ENUM ('openid', 'cooperator');
 ALTER TYPE wechat.scenetype OWNER TO soglad;
 
-CREATE TABLE wechat.scene_
+CREATE TABLE IF NOT EXISTS wechat.scene_test
 (
-	id bigint NOT NULL DEFAULT generate_id('cooperator'::character varying),
-    type wechat.scenetype default 'Openid', 
+	id bigint NOT NULL DEFAULT wechat.generate_id('scene_test'::character varying),
+    type wechat.scenetype default 'openid', 
     model_id bigint,
     scene_str character varying(255),
     ticket character varying(255),
@@ -124,18 +153,16 @@ CREATE TABLE wechat.scene_
     comment character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT scene__pkey PRIMARY KEY (id),
-    CONSTRAINT scene__model_id_unique UNIQUE (type, model_id),
-    CONSTRAINT scene__str_unique UNIQUE (scene_str),
-    CONSTRAINT scene__ticket_unique UNIQUE (ticket),
-    CONSTRAINT scene__url_unique UNIQUE (url)
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
+    CONSTRAINT scene_test_pkey PRIMARY KEY (id),
+    CONSTRAINT scene_test_model_id_unique UNIQUE (type, model_id),
+    CONSTRAINT scene_test_str_unique UNIQUE (scene_str),
+    CONSTRAINT scene_test_ticket_unique UNIQUE (ticket),
+    CONSTRAINT scene_test_url_unique UNIQUE (url)
+) WITH (OIDS = FALSE) TABLESPACE soglad;
 
-ALTER TABLE wechat.scene_ OWNER to soglad;
+ALTER TABLE wechat.scene_test OWNER to soglad;
 
-
-CREATE TABLE wechat.scene_member_
+CREATE TABLE IF NOT EXISTS wechat.scene_member_test
 (
     openid character varying(255) not null,
     member_id bigint,
@@ -143,46 +170,44 @@ CREATE TABLE wechat.scene_member_
     scene_str character varying(255),
     comment character varying(255),
     "timestamp" timestamp without time zone,
-    CONSTRAINT scene_member__pkey PRIMARY KEY (openid),
-    CONSTRAINT scene_member__id_unique UNIQUE (member_id),
-    CONSTRAINT scene_member__unionid_unique UNIQUE (unionid)
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
+    CONSTRAINT scene_member_test_pkey PRIMARY KEY (openid),
+    CONSTRAINT scene_member_test_id_unique UNIQUE (member_id),
+    CONSTRAINT scene_member_test_unionid_unique UNIQUE (unionid)
+) WITH (OIDS = FALSE) TABLESPACE soglad;
 
-ALTER TABLE wechat.scene__member OWNER to soglad;
+ALTER TABLE wechat.scene_member_test OWNER to soglad;
 
-CREATE SEQUENCE wechat.table_bonus_store__id_seq
+CREATE SEQUENCE wechat.table_bonus_store_test_id_seq
     INCREMENT 1 START 1 MINVALUE 1
     MAXVALUE 999999999999999999 CACHE 1;
 
-ALTER SEQUENCE wechat.table_bonus_store__id_seq OWNER TO soglad;
+ALTER SEQUENCE wechat.table_bonus_store_test_id_seq OWNER TO soglad;
 
-CREATE TABLE wechat.bonus_store_
+CREATE TABLE IF NOT EXISTS wechat.bonus_store_test
 (
-	id bigint NOT NULL DEFAULT generate_id('cooperator'::character varying),
+	id bigint NOT NULL DEFAULT wechat.generate_id('bonus_store_test'::character varying),
     member_id bigint,
     openid character varying(255),
     earned money,
     closed money,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT bonus_store__pkey PRIMARY KEY (id),
-    CONSTRAINT bonus_store__member_id_unique UNIQUE (member_id),
-    CONSTRAINT bonus_store__openid_unique UNIQUE (openid)
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
+    CONSTRAINT bonus_store_test_pkey PRIMARY KEY (id),
+    CONSTRAINT bonus_store_test_member_id_unique UNIQUE (member_id),
+    CONSTRAINT bonus_store_test_openid_unique UNIQUE (openid)
+) WITH (OIDS = FALSE) TABLESPACE soglad;
 
-ALTER TABLE wechat.bonus_store_ OWNER to soglad;
+ALTER TABLE wechat.bonus_store_test OWNER to soglad;
 
-CREATE SEQUENCE wechat.table_bonus_closed__id_seq
+CREATE SEQUENCE wechat.table_bonus_closed_test_id_seq
     INCREMENT 1 START 1 MINVALUE 1
     MAXVALUE 999999999999999999 CACHE 1;
 
-ALTER SEQUENCE wechat.table_bonus_closed__id_seq OWNER TO soglad;
+ALTER SEQUENCE wechat.table_bonus_closed_test_id_seq OWNER TO soglad;
 
-CREATE TABLE wechat.bonus_closed_
+CREATE TABLE IF NOT EXISTS wechat.bonus_closed_test
 (
-	id bigint NOT NULL DEFAULT generate_id('cooperator'::character varying),
+	id bigint NOT NULL DEFAULT wechat.generate_id('bonus_closed_test'::character varying),
     member_id bigint,
     openid character varying(255),
     staff_id bigint,
@@ -190,8 +215,7 @@ CREATE TABLE wechat.bonus_closed_
     amount money,
     comment character varying(255),
     "timestamp" timestamp without time zone,
-    CONSTRAINT bonus_closed__pkey PRIMARY KEY (id)
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
+    CONSTRAINT bonus_closed_test_pkey PRIMARY KEY (id)
+)WITH (OIDS = FALSE) TABLESPACE soglad;
 
-ALTER TABLE wechat.bonus_closed_ OWNER to soglad;
+ALTER TABLE wechat.bonus_closed_test OWNER to soglad;
