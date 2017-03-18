@@ -17,9 +17,9 @@ AS $function$
 
 DECLARE
   our_epoch bigint := 1482046573767;
+  shard_id int := 1;
   seq_id bigint;
   now_millis bigint;
-  shard_id int := 1;
   result bigint;
 BEGIN
   SELECT nextval('basics.table_' || tab_name || '_id_seq') % 1024 INTO seq_id;
@@ -33,6 +33,30 @@ END;
 $function$;
 
 ALTER FUNCTION basics.generate_id(character varying) OWNER TO soglad;
+
+
+CREATE SEQUENCE basics.table_supplier_id_seq
+    INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+
+ALTER SEQUENCE basics.table_supplier_id_seq OWNER TO soglad;
+
+CREATE TABLE basics.supplier
+(
+    id bigint NOT NULL DEFAULT basics.generate_id('supplier'::character varying),
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    code character varying(255) COLLATE pg_catalog."default",
+    enabled boolean NOT NULL DEFAULT true,
+    address character varying(255) COLLATE pg_catalog."default",
+    phone_number character varying(255) COLLATE pg_catalog."default",
+    comment character varying(255) COLLATE pg_catalog."default",
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    CONSTRAINT supplier_pkey PRIMARY KEY (id),
+    CONSTRAINT supplier_code_unique UNIQUE (code)
+)
+WITH (OIDS = FALSE) TABLESPACE soglad;
+
+ALTER TABLE basics.supplier OWNER to soglad;
 
 CREATE SEQUENCE basics.table_cooperator_id_seq
     INCREMENT 1 START 1 MINVALUE 1
@@ -58,121 +82,29 @@ WITH (OIDS = FALSE) TABLESPACE soglad;
 
 ALTER TABLE basics.cooperator OWNER to soglad;
 
-CREATE SEQUENCE basics.table_group_id_seq
-    INCREMENT 1 START 1 MINVALUE 1
-    MAXVALUE 999999999999999999 CACHE 1;
+CREATE SEQUENCE basics.table_mobile_operator_id_seq
+    INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+ALTER SEQUENCE basics.table_mobile_operator_id_seq OWNER TO soglad;
+-- Table: public.mobile_operator
 
-ALTER SEQUENCE basics.table_group_id_seq OWNER TO soglad;
+-- DROP TABLE public.mobile_operator;
 
-CREATE TABLE basics."group"
+CREATE TABLE public.mobile_operator
 (
-    id bigint NOT NULL DEFAULT basics.generate_id('group'::character varying),
-    name character varying(255) COLLATE pg_catalog."default",
-    code character varying(255) COLLATE pg_catalog."default",
-    enabled boolean NOT NULL DEFAULT true,
-    "group" bigint,
-    comment character varying(255) COLLATE pg_catalog."default",
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    CONSTRAINT group_pkey PRIMARY KEY (id),
-    CONSTRAINT group_code_unique UNIQUE (code),
-    CONSTRAINT parent_group FOREIGN KEY ("group")
-        REFERENCES basics."group" (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
+  id bigint NOT NULL DEFAULT nextval("basics.table_mobile_operator_id_seq"),
+  name character varying(255) NOT NULL,
+  code character varying(255) NOT NULL,
+  sign character varying(255) NOT NULL,
+  enabled boolean NOT NULL DEFAULT true,
+  comment character varying(255),
+  created_at timestamp(0) without time zone,
+  updated_at timestamp(0) without time zone,
+  CONSTRAINT mobile_operator_pkey PRIMARY KEY (id),
+  CONSTRAINT mobile_operator_code_unique UNIQUE (code),
+  CONSTRAINT mobile_operator_sign_unique UNIQUE (sign)
+)WITH (OIDS = FALSE) TABLESPACE zeofast;
 
-ALTER TABLE basics."group" OWNER to soglad;
-
-CREATE SEQUENCE basics.table_member_id_seq
-    INCREMENT 1 START 1 MINVALUE 1
-    MAXVALUE 999999999999999999 CACHE 1;
-
-ALTER SEQUENCE basics.table_member_id_seq OWNER TO soglad;
-
-CREATE TABLE basics.member
-(
-    id bigint NOT NULL DEFAULT basics.generate_id('member'::character varying),
-    username character varying(255) COLLATE pg_catalog."default",
-    password character varying(255) COLLATE pg_catalog."default",
-    salt character varying(255) COLLATE pg_catalog."default",
-    enabled boolean DEFAULT true,
-    status character varying(255) COLLATE pg_catalog."default",
-    alias character varying(255) COLLATE pg_catalog."default",
-    avatar character varying(255) COLLATE pg_catalog."default",
-    gender character varying(255) COLLATE pg_catalog."default",
-    email character varying(255) COLLATE pg_catalog."default",
-    email_verified boolean DEFAULT false,
-    mobile character varying(255) COLLATE pg_catalog."default",
-    mobile_verified boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    CONSTRAINT member_pkey PRIMARY KEY (id),
-    CONSTRAINT member_email_unique UNIQUE (email),
-    CONSTRAINT member_mobile_unique UNIQUE (mobile),
-    CONSTRAINT member_username_unique UNIQUE (username)
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
-
-ALTER TABLE basics.member OWNER to soglad;
-
-CREATE SEQUENCE basics.table_role_id_seq
-    INCREMENT 1 START 1 MINVALUE 1
-    MAXVALUE 999999999999999999 CACHE 1;
-
-ALTER SEQUENCE basics.table_role_id_seq OWNER TO soglad;
-
-CREATE TABLE basics.role
-(
-    id bigint NOT NULL DEFAULT basics.generate_id('role'::character varying),
-    name character varying(255) COLLATE pg_catalog."default",
-    code character varying(255) COLLATE pg_catalog."default",
-    enabled boolean NOT NULL DEFAULT true,
-    role bigint,
-    comment character varying(255) COLLATE pg_catalog."default",
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    CONSTRAINT role_pkey PRIMARY KEY (id),
-    CONSTRAINT role_code_unique UNIQUE (code),
-    CONSTRAINT parent_role FOREIGN KEY (role)
-        REFERENCES basics.role (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
-
-ALTER TABLE basics.role OWNER to soglad;
-
-CREATE SEQUENCE basics.table_supplier_id_seq
-    INCREMENT 1 START 1 MINVALUE 1
-    MAXVALUE 999999999999999999 CACHE 1;
-
-ALTER SEQUENCE basics.table_supplier_id_seq OWNER TO soglad;
-
-CREATE TABLE basics.supplier
-(
-    id bigint NOT NULL DEFAULT basics.generate_id('supplier'::character varying),
-    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    code character varying(255) COLLATE pg_catalog."default",
-    enabled boolean NOT NULL DEFAULT true,
-    address character varying(255) COLLATE pg_catalog."default",
-    phone_number character varying(255) COLLATE pg_catalog."default",
-    comment character varying(255) COLLATE pg_catalog."default",
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    CONSTRAINT supplier_pkey PRIMARY KEY (id),
-    CONSTRAINT supplier_code_unique UNIQUE (code)
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
-
-ALTER TABLE basics.supplier OWNER to soglad;
-
-CREATE SEQUENCE basics.table_staff_id_seq
-    INCREMENT 1 START 1 MINVALUE 1
-    MAXVALUE 999999999999999999 CACHE 1;
-
-ALTER SEQUENCE basics.table_staff_id_seq OWNER TO soglad;
+ALTER TABLE public.mobile_operator OWNER to zeofast;
 
 CREATE TABLE basics.staff
 (
