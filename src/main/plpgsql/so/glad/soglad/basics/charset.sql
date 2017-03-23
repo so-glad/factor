@@ -1,25 +1,26 @@
-CREATE SEQUENCE basics.charset_id_seq
-    INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE basics.charset_id_seq OWNER TO soglad;
+CREATE SEQUENCE public.table_charset_id_seq
+INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+ALTER SEQUENCE public.table_charset_id_seq
+OWNER TO soglad;
 
--- Table: basics.locale
+-- Table: public.charset;
 
--- DROP TABLE basics.locale;
+-- DROP TABLE public.charset;
 
-CREATE TABLE basics.charset
-(
-  id bigint NOT NULL DEFAULT nextval("basics.charset_id_seq"),
-  name character varying(255) NOT NULL,
-  code character varying(255) NOT NULL,
-  sign character varying(255) NOT NULL,
-  enabled boolean NOT NULL DEFAULT true,
-  sort integer NOT NULL default 1,
-  comment character varying(255),
-  created_at timestamp(0) without time zone,
-  updated_at timestamp(0) without time zone,
+CREATE TABLE public.charset (
+  id         BIGINT                 NOT NULL DEFAULT nextval('public.table_charset_id_seq' :: CHARACTER VARYING),
+  name       CHARACTER VARYING(255) NOT NULL,
+  code       CHARACTER VARYING(255) NOT NULL,
+  sign       CHARACTER VARYING(255) NOT NULL,
+  enabled    BOOLEAN                NOT NULL DEFAULT TRUE,
+  sort       INTEGER                NOT NULL DEFAULT 1,
+  comment    CHARACTER VARYING(255),
+  created_at TIMESTAMP(0) WITHOUT TIME ZONE,
+  updated_at TIMESTAMP(0) WITHOUT TIME ZONE,
   CONSTRAINT charset_pkey PRIMARY KEY (id),
   CONSTRAINT charset_code_unique UNIQUE (code),
   CONSTRAINT charset_sign_unique UNIQUE (sign)
-) WITH (OIDS = FALSE) TABLESPACE soglad;
-
-ALTER TABLE basics.charset OWNER to soglad;
+) WITH (OIDS = FALSE
+) TABLESPACE soglad;
+ALTER TABLE public.charset
+  OWNER TO soglad;

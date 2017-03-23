@@ -1,72 +1,92 @@
-CREATE SEQUENCE basics.table_user_id_seq
-    INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE basics.table_user_id_seq OWNER TO soglad;
+CREATE SEQUENCE public.table_role_id_seq
+INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+ALTER SEQUENCE public.table_role_id_seq
+OWNER TO soglad;
 
-CREATE TABLE basics.user
+-- Table: public.role;
+
+-- DROP TABLE public.role;
+
+CREATE TABLE public.role
 (
-    id bigint NOT NULL DEFAULT nextval('member'::character varying),
-    username character varying(255) NOT NULL,
-    password character varying(255),
-    salt character varying(255),
-    enabled boolean NOT NULL DEFAULT true,
-    status character varying(255),
-    alias character varying(255),
-    avatar character varying(255),
-    gender character varying(255) NOT NULL,
-    email character varying(255) NOT NULL,
-    email_verified boolean NOT NULL DEFAULT false,
-    mobile character varying(255),
-    mobile_verified boolean NOT NULL DEFAULT false,
-    remember_token character varying(255) DEFAULT NULL,
-    created_at timestamp without time zone NOT NULL DEFAULT now(),
-    updated_at timestamp without time zone NOT NULL DEFAULT now(),
-    CONSTRAINT user_pkey PRIMARY KEY (id),
-    CONSTRAINT user_email_unique UNIQUE (email),
-    CONSTRAINT user_mobile_unique UNIQUE (mobile),
-    CONSTRAINT user_username_unique UNIQUE (username)
-) WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE basics.member OWNER to soglad;
+  id         BIGINT                 NOT NULL DEFAULT nextval('public.table_role_id_seq'::CHARACTER VARYING),
+  name       CHARACTER VARYING(255) NOT NULL,
+  code       CHARACTER VARYING(255),
+  enabled    BOOLEAN                NOT NULL DEFAULT TRUE,
+  comment    CHARACTER VARYING(255),
+  created_at TIMESTAMP WITHOUT TIME ZONE,
+  updated_at TIMESTAMP WITHOUT TIME ZONE,
+  CONSTRAINT role_pkey PRIMARY KEY (id),
+  CONSTRAINT role_code_unique UNIQUE (code)
+) WITH (OIDS = FALSE
+) TABLESPACE soglad;
+ALTER TABLE public.role
+  OWNER TO soglad;
 
-CREATE SEQUENCE basics.table_user_group_id_seq
-    INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE basics.table_user_group_id_seq OWNER TO soglad;
+CREATE SEQUENCE public.table_user_id_seq
+INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+ALTER SEQUENCE public.table_user_id_seq
+OWNER TO soglad;
 
-CREATE TABLE basics.user_group
+-- Table: public.user;
+
+-- DROP TABLE public.user;
+
+CREATE TABLE public.user (
+  id              BIGINT                      NOT NULL DEFAULT nextval('public.table_user_id_seq' :: CHARACTER VARYING),
+  username        CHARACTER VARYING(255)      NOT NULL,
+  password        CHARACTER VARYING(255)      NOT NULL DEFAULT '',
+  salt            CHARACTER VARYING(255)               DEFAULT NULL,
+  enabled         BOOLEAN                     NOT NULL DEFAULT TRUE,
+  status          CHARACTER VARYING(255),
+  alias           CHARACTER VARYING(255)      NOT NULL DEFAULT 'Bear',
+  avatar          CHARACTER VARYING(255),
+  gender          CHARACTER VARYING(255)      NOT NULL DEFAULT 'Male',
+  email           CHARACTER VARYING(255)      NOT NULL,
+  email_verified  BOOLEAN                     NOT NULL DEFAULT FALSE,
+  mobile          CHARACTER VARYING(255),
+  mobile_verified BOOLEAN                     NOT NULL DEFAULT FALSE,
+  remember_token  CHARACTER VARYING(255)               DEFAULT NULL,
+  role_id            BIGINT                      NOT NULL DEFAULT 1,
+  created_at      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+  updated_at      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+  CONSTRAINT user_pkey PRIMARY KEY (id),
+  CONSTRAINT user_username_unique UNIQUE (username),
+  CONSTRAINT user_email_unique UNIQUE (email),
+  CONSTRAINT user_mobile_unique UNIQUE (mobile),
+  CONSTRAINT user_role_id_foreign FOREIGN KEY (role_id)
+  REFERENCES public.role (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+) WITH (OIDS = FALSE
+) TABLESPACE soglad;
+ALTER TABLE public.user
+  OWNER TO soglad;
+
+CREATE SEQUENCE public.table_group_id_seq
+INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+ALTER SEQUENCE public.table_group_id_seq
+OWNER TO soglad;
+
+-- Table: public.group;
+
+-- DROP TABLE public.group;
+
+CREATE TABLE public.group
 (
-    id bigint NOT NULL DEFAULT nextval("basics.table_user_group_id_seq"),
-    name character varying(255),
-    code character varying(255),
-    enabled boolean NOT NULL DEFAULT true,
-    parent_id bigint,
-    comment character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    CONSTRAINT user_group_pkey PRIMARY KEY (id),
-    CONSTRAINT user_group_code_unique UNIQUE (code),
-    CONSTRAINT user_group_parent_id_foreign FOREIGN KEY (parent_id)
-        REFERENCES basics.user_group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE basics.user_group OWNER to soglad;
-
-
-CREATE SEQUENCE basics.table_role_id_seq
-    INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE basics.table_role_id_seq OWNER TO soglad;
-
-CREATE TABLE basics.role
-(
-    id bigint NOT NULL DEFAULT nextval('basics.table_role_id_seq'),
-    name character varying(255) NOT NULL,
-    code character varying(255),
-    enabled boolean NOT NULL DEFAULT true,
-    role bigint,
-    comment character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    CONSTRAINT role_pkey PRIMARY KEY (id),
-    CONSTRAINT role_code_unique UNIQUE (code),
-    CONSTRAINT parent_role FOREIGN KEY (role)
-    REFERENCES basics.role (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-) WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE basics.role OWNER to soglad;
+  id         BIGINT  NOT NULL DEFAULT nextval('public.table_group_id_seq' :: CHARACTER VARYING),
+  name       CHARACTER VARYING(255) NOT NULL ,
+  code       CHARACTER VARYING(255) NOT NULL ,
+  enabled    BOOLEAN NOT NULL DEFAULT TRUE,
+  type       CHARACTER VARYING(255) NOT NULL DEFAULT 'USER'::CHARACTER VARYING,
+  parent_id  BIGINT,
+  comment    CHARACTER VARYING(255),
+  created_at TIMESTAMP WITHOUT TIME ZONE,
+  updated_at TIMESTAMP WITHOUT TIME ZONE,
+  CONSTRAINT user_group_pkey PRIMARY KEY (id),
+  CONSTRAINT user_group_code_unique UNIQUE (code),
+  CONSTRAINT user_group_parent_id_foreign FOREIGN KEY (parent_id)
+  REFERENCES public.group (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT group_type_check CHECK (type::text = ANY (ARRAY['USER'::CHARACTER VARYING]::text[]))
+) WITH (OIDS = FALSE
+) TABLESPACE soglad;
+ALTER TABLE public.group
+  OWNER TO soglad;
