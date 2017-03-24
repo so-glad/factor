@@ -1,27 +1,29 @@
-CREATE SEQUENCE basics.locale_id_seq
-    INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE basics.locale_id_seq OWNER TO soglad;
+CREATE SEQUENCE public.table_locale_id_seq
+INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+ALTER SEQUENCE public.table_locale_id_seq
+OWNER TO soglad;
 
--- Table: basics.locale
+-- Table: public.locale
 
--- DROP TABLE basics.locale;
+-- DROP TABLE public.locale;
 
-CREATE TABLE basics.locale
+CREATE TABLE public.locale
 (
-  id bigint NOT NULL DEFAULT nextval("basics.locale_id_seq"),
-  name character varying(255) NOT NULL,
-  code character varying(255) NOT NULL,
-  sign character varying(255) NOT NULL,
-  enabled boolean NOT NULL DEFAULT true,
-  parent_id bigint,
-  sort integer NOT NULL default 1,
-  comment character varying(255),
-  created_at timestamp(0) without time zone,
-  updated_at timestamp(0) without time zone,
+  id          BIGINT                         NOT NULL DEFAULT nextval('public.table_locale_id_seq' :: CHARACTER VARYING),
+  name        CHARACTER VARYING(255)         NOT NULL,
+  code        CHARACTER VARYING(255)         NOT NULL,
+  native_name CHARACTER VARYING(255)         NOT NULL,
+  enabled     BOOLEAN                        NOT NULL DEFAULT TRUE,
+  language_id BIGINT NOT NULL DEFAULT 0,
+  region_id BIGINT NOT NULL DEFAULT 0,
+  comment     CHARACTER VARYING(255),
+  created_at  TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT locale_pkey PRIMARY KEY (id),
   CONSTRAINT locale_code_unique UNIQUE (code),
-  CONSTRAINT locale_sign_unique UNIQUE (sign),
-  CONSTRAINT locale_parent_id_foreign FOREIGN KEY (parent_id)
-  REFERENCES basics.locale (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+  CONSTRAINT locale_language_id_foreign FOREIGN KEY (language_id)
+  REFERENCES public.locale (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT locale_region_id_foreign FOREIGN KEY (region_id)
+  REFERENCES public.region (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
 ) WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE basics.locale OWNER to soglad;
+ALTER TABLE public.locale OWNER TO soglad;

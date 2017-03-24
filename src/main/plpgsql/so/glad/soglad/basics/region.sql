@@ -16,9 +16,9 @@ CREATE TABLE public.region
   enabled    BOOLEAN                NOT NULL DEFAULT TRUE,
   parent_id  BIGINT,
   sort       INTEGER                NOT NULL DEFAULT 1,
-  comment    CHARACTER VARYING(255),
-  created_at TIMESTAMP(0) WITHOUT TIME ZONE,
-  updated_at TIMESTAMP(0) WITHOUT TIME ZONE,
+  comment    CHARACTER VARYING(255) NOT NULL DEFAULT 'region',
+  created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT region_pkey PRIMARY KEY (id),
   CONSTRAINT region_code_unique UNIQUE (code),
   CONSTRAINT region_sign_unique UNIQUE (sign),
@@ -29,3 +29,7 @@ CREATE TABLE public.region
 
 ALTER TABLE public.region
   OWNER TO soglad;
+
+INSERT INTO public.region(name,code,sign, parent_id) VALUES
+  ('china','008600000','China',NULL),
+  ('unitedstate','','UnitedState',NULL)

@@ -24,3 +24,7 @@ CREATE TABLE public.charset (
 ) TABLESPACE soglad;
 ALTER TABLE public.charset
   OWNER TO soglad;
+
+INSERT into public.charset(name, code, sign) VALUES
+  ('','',''),
+  (''，''，''),
