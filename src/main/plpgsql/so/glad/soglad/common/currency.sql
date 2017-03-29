@@ -1,14 +1,14 @@
-CREATE SEQUENCE public.table_currency_id_seq
+CREATE SEQUENCE common.table_currency_id_seq
     INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE public.table_currency_id_seq OWNER TO soglad;
+ALTER SEQUENCE common.table_currency_id_seq OWNER TO soglad;
 
--- Table: public.currency
+-- Table: common.currency
 
--- DROP TABLE public.currency;
+-- DROP TABLE common.currency;
 
-CREATE TABLE public.currency
+CREATE TABLE common.currency
 (
-  id bigint NOT NULL DEFAULT nextval('public.table_currency_id_seq'::CHARACTER VARYING),
+  id bigint NOT NULL DEFAULT nextval('common.table_currency_id_seq'::CHARACTER VARYING),
   name character varying(255) NOT NULL,
   code character varying(255) NOT NULL,
   enabled boolean NOT NULL DEFAULT true,
@@ -19,9 +19,9 @@ CREATE TABLE public.currency
   CONSTRAINT currency_pkey PRIMARY KEY (id),
   CONSTRAINT currency_code_unique UNIQUE (code)
 ) WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE public.currency OWNER to soglad;
+ALTER TABLE common.currency OWNER to soglad;
 
-INSERT INTO public.currency("name", code, symbol) VALUES
+INSERT INTO common.currency("name", code, symbol) VALUES
   ('dollar','USD','$'),
   ('renminbi','CNY','¥'),
   ('euro','EUR','€'),

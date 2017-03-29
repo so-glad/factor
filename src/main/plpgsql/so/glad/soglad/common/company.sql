@@ -1,15 +1,15 @@
-CREATE SEQUENCE public.table_company_id_seq
+CREATE SEQUENCE common.table_company_id_seq
 INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE public.table_company_id_seq
+ALTER SEQUENCE common.table_company_id_seq
 OWNER TO soglad;
 
--- Table: public.company;
+-- Table: common.company;
 -- Dependency currency
--- DROP TABLE public.company;
+-- DROP TABLE common.company;
 
-CREATE TABLE public.company
+CREATE TABLE common.company
 (
-  id             BIGINT                 NOT NULL DEFAULT nextval('public.table_company_id_seq'::CHARACTER VARYING),
+  id             BIGINT                 NOT NULL DEFAULT nextval('common.table_company_id_seq'::CHARACTER VARYING),
   identity       CHARACTER VARYING(255) NOT NULL,
   enabled        BOOLEAN                NOT NULL DEFAULT TRUE,
   name           CHARACTER VARYING(255) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE public.company
   CONSTRAINT company_pkey PRIMARY KEY (id),
   CONSTRAINT company_identity_unique UNIQUE (identity),
   CONSTRAINT company_currency_id_foreign FOREIGN KEY (currency_id)
-  REFERENCES public.currency (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+  REFERENCES common.currency (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
 ) WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE public.company OWNER TO soglad;
+ALTER TABLE common.company OWNER TO soglad;
 

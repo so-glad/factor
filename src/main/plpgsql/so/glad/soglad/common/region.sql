@@ -1,15 +1,14 @@
-CREATE SEQUENCE public.table_region_id_seq
+CREATE SEQUENCE common.table_region_id_seq
 INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE public.table_region_id_seq
-OWNER TO soglad;
+ALTER SEQUENCE common.table_region_id_seq OWNER TO soglad;
 
--- Table: public.region
+-- Table: common.region
 
--- DROP TABLE public.region;
+-- DROP TABLE common.region;
 
-CREATE TABLE public.region
+CREATE TABLE common.region
 (
-  id         BIGINT                 NOT NULL DEFAULT nextval('public.table_region_id_seq' :: CHARACTER VARYING),
+  id         BIGINT                 NOT NULL DEFAULT nextval('common.table_region_id_seq' :: CHARACTER VARYING),
   name       CHARACTER VARYING(255) NOT NULL,
   code       CHARACTER VARYING(255) NOT NULL,
   sign       CHARACTER VARYING(255) NOT NULL,
@@ -23,13 +22,10 @@ CREATE TABLE public.region
   CONSTRAINT region_code_unique UNIQUE (code),
   CONSTRAINT region_sign_unique UNIQUE (sign),
   CONSTRAINT region_parent_id_foreign FOREIGN KEY (parent_id)
-  REFERENCES public.region (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
-) WITH (OIDS = FALSE
-) TABLESPACE soglad;
+  REFERENCES common.region (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+) WITH (OIDS = FALSE) TABLESPACE soglad;
+ALTER TABLE common.region OWNER TO soglad;
 
-ALTER TABLE public.region
-  OWNER TO soglad;
-
-INSERT INTO public.region(name,code,sign, parent_id) VALUES
-  ('china','008600000','China',NULL),
-  ('unitedstate','','UnitedState',NULL)
+INSERT INTO common.region(name,code,sign, parent_id) VALUES
+  ('china','008600000000','China',NULL),
+  ('unitedstate','000100000000','UnitedState',NULL)

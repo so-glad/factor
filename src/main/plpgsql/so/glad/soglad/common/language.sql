@@ -1,15 +1,15 @@
-CREATE SEQUENCE public.table_language_id_seq
+CREATE SEQUENCE common.table_language_id_seq
 INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE public.table_language_id_seq
+ALTER SEQUENCE common.table_language_id_seq
 OWNER TO soglad;
 
--- Table: public.language
+-- Table: common.language
 
--- DROP TABLE public.language;
+-- DROP TABLE common.language;
 
-CREATE TABLE public.language
+CREATE TABLE common.language
 (
-  id         BIGINT                 NOT NULL DEFAULT nextval('public.table_language_id_seq' :: CHARACTER VARYING),
+  id         BIGINT                 NOT NULL DEFAULT nextval('common.table_language_id_seq' :: CHARACTER VARYING),
   name       CHARACTER VARYING(255) NOT NULL,
   code       CHARACTER VARYING(255) NOT NULL,
   native_name       CHARACTER VARYING(255) NOT NULL,
@@ -22,10 +22,10 @@ CREATE TABLE public.language
 ) WITH (OIDS = FALSE
 ) TABLESPACE soglad;
 
-ALTER TABLE public.language
+ALTER TABLE common.language
   OWNER TO soglad;
 
-INSERT INTO public.language(name, code, native_name) VALUES
+INSERT INTO common.language(name, code, native_name) VALUES
   ('english','en','English'),
   ('chinese','zh','汉语'),
   ('russian','ru',''),
