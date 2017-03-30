@@ -1,12 +1,12 @@
--- SCHEMA: basics
+-- SCHEMA: common
 
--- DROP SCHEMA basics ;
+-- DROP SCHEMA common ;
 
-CREATE SCHEMA basics AUTHORIZATION soglad;
+CREATE SCHEMA common AUTHORIZATION soglad;
 
--- FUNCTION: basics.generate_id(character varying)
+-- FUNCTION: common.generate_id(character varying)
 
--- DROP FUNCTION basics.generate_id(character varying);
+-- DROP FUNCTION common.generate_id(character varying);
 
 CREATE OR REPLACE FUNCTION basics.generate_id(tab_name character varying)
     RETURNS bigint
