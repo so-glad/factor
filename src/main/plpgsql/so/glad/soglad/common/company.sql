@@ -1,7 +1,6 @@
 CREATE SEQUENCE common.table_company_id_seq
 INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE common.table_company_id_seq
-OWNER TO soglad;
+ALTER SEQUENCE common.table_company_id_seq OWNER TO soglad;
 
 -- Table: common.company;
 -- Dependency currency
@@ -13,21 +12,21 @@ CREATE TABLE common.company
   identity       CHARACTER VARYING(255) NOT NULL,
   enabled        BOOLEAN                NOT NULL DEFAULT TRUE,
   name           CHARACTER VARYING(255) NOT NULL,
-  alias          CHARACTER VARYING(255),
-  category       CHARACTER VARYING(255) NOT NULL DEFAULT '',
-  capital        DECIMAL(20,2) DEFAULT 10000.00,
+  alias          CHARACTER VARYING(255) NOT NULL DEFAULT '',
+  category       CHARACTER VARYING(255) NOT NULL DEFAULT 'LTD',
+  capital        DECIMAL(20,2)   DEFAULT 10000.00,
   currency_id    BIGINT NOT NULL DEFAULT 1,
-  found_date     TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  found_date     TIMESTAMP WITHOUT TIME ZONE NOT NULL,
   chairman       CHARACTER VARYING(255) NOT NULL,
   address        CHARACTER VARYING(255) NOT NULL,
   phone          CHARACTER VARYING(255) NOT NULL,
-  fax            CHARACTER VARYING(255),
-  email          CHARACTER VARYING(255),
-  industry       CHARACTER VARYING(255),
-  comment        CHARACTER VARYING(255),
-  size           int,
-  business       TEXT DEFAULT NULL,
-  summary        TEXT DEFAULT NULL,
+  fax            CHARACTER VARYING(255) NOT NULL DEFAULT '',
+  email          CHARACTER VARYING(255) NOT NULL DEFAULT '',
+  industry       CHARACTER VARYING(255) NOT NULL DEFAULT '',
+  comment        CHARACTER VARYING(255) NOT NULL DEFAULT '',
+  size           INTEGER DEFAULT 50,
+  business       TEXT NOT NULL DEFAULT '',
+  summary        TEXT NOT NULL DEFAULT '',
   created_at     TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at     TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT company_pkey PRIMARY KEY (id),
