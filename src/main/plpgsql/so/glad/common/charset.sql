@@ -1,13 +1,13 @@
-CREATE SEQUENCE common.table_charset_id_seq
+CREATE SEQUENCE public.table_charset_id_seq
 INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
-ALTER SEQUENCE common.table_charset_id_seq OWNER TO soglad;
+ALTER SEQUENCE public.table_charset_id_seq OWNER TO soglad;
 
--- Table: common.charset;
+-- Table: public.charset;
 
--- DROP TABLE common.charset;
+-- DROP TABLE public.charset;
 
-CREATE TABLE common.charset (
-  id         BIGINT                 NOT NULL DEFAULT nextval('common.table_charset_id_seq' :: CHARACTER VARYING),
+CREATE TABLE public.charset (
+  id         BIGINT                 NOT NULL DEFAULT nextval('public.table_charset_id_seq' :: CHARACTER VARYING),
   name       CHARACTER VARYING(255) NOT NULL,
   code       CHARACTER VARYING(255) NOT NULL,
   sign       CHARACTER VARYING(255) NOT NULL,
@@ -20,8 +20,13 @@ CREATE TABLE common.charset (
   CONSTRAINT charset_code_unique UNIQUE (code),
   CONSTRAINT charset_sign_unique UNIQUE (sign)
 ) WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE common.charset OWNER TO soglad;
+ALTER TABLE public.charset OWNER TO soglad;
 
-INSERT into common.charset(name, code, sign) VALUES
+CREATE INDEX charset_code_index
+  ON public.charset USING BTREE (code) TABLESPACE soglad;
+CREATE INDEX charset_sign_index
+  ON public.charset USING BTREE (sign) TABLESPACE soglad;
+
+INSERT into public.charset(name, code, sign) VALUES
   ('','',''),
   (''，''，''),
