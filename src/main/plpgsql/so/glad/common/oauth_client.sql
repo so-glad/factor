@@ -134,23 +134,3 @@ ALTER TABLE public.oauth_refresh_token
 CREATE INDEX oauth_refresh_token_access_token_id_index
   ON public.oauth_refresh_token USING BTREE (access_token_id)
 TABLESPACE soglad;
-
-CREATE TABLE public.oauth_provider
-(
-    type          CHARACTER VARYING(255) NOT NULL,
-    client_id     CHARACTER VARYING(255) NOT NULL,
-    client_secret CHARACTER VARYING(255) NOT NULL,
-    revoked       BOOLEAN                NOT NULL DEFAULT FALSE,
-    name          CHARACTER VARYING(255),
-    redirect_url  CHARACTER VARYING(255),
-    authorize_url CHARACTER VARYING(255) NOT NULL,
-    token_url     CHARACTER VARYING(255) NOT NULL,
-    created_at    TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
-    updated_at    TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
-    CONSTRAINT oauth_provider_type_client_id_unique UNIQUE (type, client_id) USING INDEX TABLESPACE soglad
-)
-WITH (OIDS = FALSE) TABLESPACE soglad;
-
-ALTER TABLE public.oauth_provider OWNER to soglad;
-COMMENT ON TABLE public.oauth_provider
-    IS 'Config, Expressed which provider we connected, via their clientId, client secrete';
