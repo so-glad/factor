@@ -58,7 +58,6 @@ CREATE TABLE public.user (
   email_verified  BOOLEAN                     NOT NULL DEFAULT FALSE,
   mobile          CHARACTER VARYING(255),
   mobile_verified BOOLEAN                     NOT NULL DEFAULT FALSE,
-  remember_token  CHARACTER VARYING(255)               DEFAULT NULL,
   role_id         BIGINT                      NOT NULL DEFAULT 1,
   created_at      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
   updated_at      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
@@ -77,6 +76,8 @@ CREATE INDEX user_email_index
   ON public.user USING BTREE (email) TABLESPACE soglad;
 CREATE INDEX user_mobile_index
   ON public.user USING BTREE (mobile) TABLESPACE soglad;
+CREATE INDEX user_role_id_index
+  ON public.user USING BTREE (role_id) TABLESPACE soglad;  
 
 CREATE SEQUENCE public.table_group_id_seq
 INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
