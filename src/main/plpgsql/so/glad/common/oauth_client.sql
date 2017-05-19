@@ -33,7 +33,7 @@ TABLESPACE soglad;
 ALTER TABLE public.oauth_client
     ALTER COLUMN grant_types TYPE integer ;
 COMMENT ON COLUMN public.oauth_client.grant_types
-    IS 'Each binary bit express a boolean value of a type. 16:refresh_token 8:implicit 4:client_credentials 2:password 1:authorization_code';
+    IS 'Each binary bit express a boolean value of a type. 16:refresh_token 8:proxy 4:client_credentials 2:password 1:authorization_code';
 -- Table: public.oauth_auth_code
 
 -- DROP TABLE public.oauth_auth_code;
@@ -41,14 +41,14 @@ COMMENT ON COLUMN public.oauth_client.grant_types
 -- This is a timeliness entity, would be better store in mem.
 CREATE TABLE public.oauth_code
 (
-  id         CHARACTER VARYING(100) NOT NULL,
-  scopes     TEXT,
+  code       CHARACTER VARYING(255) NOT NULL,
+  scope      TEXT,
   revoked    BOOLEAN                NOT NULL DEFAULT FALSE,
   expires_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL,
   user_id    BIGINT                 NOT NULL,
   client_id  BIGINT                 NOT NULL,
-  timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
-  CONSTRAINT oauth_code_pkey PRIMARY KEY (id),
+  timestamp  TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
+  CONSTRAINT oauth_code_pkey PRIMARY KEY (code),
   CONSTRAINT oauth_code_user_id_foreign FOREIGN KEY (user_id)
   REFERENCES public.user (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT oauth_code_client_id_foreign FOREIGN KEY (client_id)
@@ -74,63 +74,37 @@ CREATE INDEX oauth_code_client_id_index
 TABLESPACE soglad;
 
 -- This is a timeliness entity, would be better store in mem.
-CREATE TABLE public.oauth_access_token (
-  id         CHARACTER VARYING(100)      NOT NULL,
-  name       CHARACTER VARYING(255),
-  scopes     TEXT,
+CREATE TABLE public.oauth_token (
+  access_token       CHARACTER VARYING(255),
+  refresh_token      CHARACTER VARYING(255),
+  scope     TEXT,
   revoked    BOOLEAN                     NOT NULL DEFAULT FALSE,
   expires_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL,
+  remind_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL,
   user_id    BIGINT,
   client_id  BIGINT                      NOT NULL,
   timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
-  CONSTRAINT oauth_access_token_pkey PRIMARY KEY (id),
-  CONSTRAINT oauth_access_token_user_id_foreign FOREIGN KEY (user_id)
+  CONSTRAINT oauth_token_access_token_pkey PRIMARY KEY (access_token),
+  CONSTRAINT oauth_token_refresh_token_unique UNIQUE (refresh_token),
+  CONSTRAINT oauth_token_user_id_foreign FOREIGN KEY (user_id)
   REFERENCES public.user (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT oauth_access_token_client_id_foreign FOREIGN KEY (client_id)
+  CONSTRAINT oauth_token_client_id_foreign FOREIGN KEY (client_id)
   REFERENCES public.oauth_client (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
 ) WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE public.oauth_access_token OWNER TO soglad;
+ALTER TABLE public.oauth_token OWNER TO soglad;
 
 -- Index: oauth_access_token_user_id_index
 
 -- DROP INDEX public.oauth_access_token_user_id_index;
 
-CREATE INDEX oauth_access_token_user_id_index
-  ON public.oauth_access_token USING BTREE (user_id)
+CREATE INDEX oauth_token_user_id_index
+  ON public.oauth_token USING BTREE (user_id)
 TABLESPACE soglad;
 
 -- Index: oauth_access_token_client_id_index
 
 -- DROP INDEX public.oauth_access_token_client_id_index;
 
-CREATE INDEX oauth_access_token_client_id_index
-  ON public.oauth_access_token USING BTREE (client_id)
-TABLESPACE soglad;
-
--- Table: public.oauth_refresh_token
-
--- DROP TABLE public.oauth_refresh_token;
-
--- This is a timeliness entity, would be better store in mem.
-
-CREATE TABLE public.oauth_refresh_token
-(
-  id              CHARACTER VARYING(100) NOT NULL,
-  access_token_id CHARACTER VARYING(100) NOT NULL,
-  revoked         BOOLEAN                NOT NULL DEFAULT FALSE,
-  expires_at      TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL,
-  timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
-  CONSTRAINT oauth_refresh_token_pkey PRIMARY KEY (id),
-  CONSTRAINT oauth_refresh_token_access_token_id_foreign FOREIGN KEY (access_token_id)
-  REFERENCES public.oauth_access_token (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
-) WITH (OIDS = FALSE) TABLESPACE soglad;
-ALTER TABLE public.oauth_refresh_token
-  OWNER TO soglad;
-
--- Index: oauth_refresh_token_access_token_id_index
-
--- DROP INDEX public.oauth_refresh_token_access_token_id_index;
-
-CREATE INDEX oauth_refresh_token_access_token_id_index
-  ON public.oauth_refresh_token USING BTREE (access_token_id)
+CREATE INDEX oauth_token_client_id_index
+  ON public.oauth_token USING BTREE (client_id)
 TABLESPACE soglad;
