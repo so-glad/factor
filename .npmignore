@@ -1,0 +1,37 @@
+# OS stuff
+.*.swp
+._*
+.DS_Store
+
+# VCS stuff
+CVS
+.git
+.gitignore
+.hg
+.svn
+
+# Javascript stuff
+.babelrc
+.eslintrc
+.lock-wscript
+.wafpickle-*
+config.gypi
+
+# NPM stuff
+node_modules
+.npmignore
+npm-debug.log
+.npmrc
+Dockerfile
+# IDE/Editor stuff
+.idea
+.eclipse
+.vscode
+.atom
+.sublime
+
+# Project own stuff
+dist
+dest
+src
+var

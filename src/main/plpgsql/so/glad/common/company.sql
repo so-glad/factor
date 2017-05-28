@@ -11,7 +11,7 @@ CREATE TABLE public.company
 (
   id          BIGINT                      NOT NULL DEFAULT nextval('public.table_company_id_seq' :: CHARACTER VARYING),
   identity    CHARACTER VARYING(255)      NOT NULL,
-  enabled     BOOLEAN                     NOT NULL DEFAULT TRUE,
+  revoked     BOOLEAN                     NOT NULL DEFAULT FALSE,
   name        CHARACTER VARYING(255)      NOT NULL,
   alias       CHARACTER VARYING(255)      NOT NULL,
   category    CHARACTER VARYING(255)      NOT NULL DEFAULT 'LTD',

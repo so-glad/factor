@@ -13,7 +13,7 @@ CREATE TABLE public.locale
   name        CHARACTER VARYING(255)         NOT NULL,
   code        CHARACTER VARYING(255)         NOT NULL,
   native_name CHARACTER VARYING(255)         NOT NULL,
-  enabled     BOOLEAN                        NOT NULL DEFAULT TRUE,
+  revoked     BOOLEAN                        NOT NULL DEFAULT FALSE,
   language_id BIGINT NOT NULL DEFAULT 0,
   region_id BIGINT NOT NULL DEFAULT 0,
   comment     CHARACTER VARYING(255),

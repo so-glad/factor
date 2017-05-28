@@ -13,7 +13,7 @@ CREATE TABLE public.region
   name       CHARACTER VARYING(255)      NOT NULL,
   code       CHARACTER VARYING(255)      NOT NULL,
   sign       CHARACTER VARYING(255)      NOT NULL,
-  enabled    BOOLEAN                     NOT NULL DEFAULT TRUE,
+  revoked    BOOLEAN                     NOT NULL DEFAULT FALSE,
   parent_id  BIGINT,
   sort       INTEGER                     NOT NULL DEFAULT 1,
   comment    CHARACTER VARYING(255)      NOT NULL DEFAULT 'region',

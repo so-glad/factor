@@ -8,7 +8,7 @@ CREATE TABLE public.currency
   id         BIGINT                      NOT NULL DEFAULT nextval('public.table_currency_id_seq' :: CHARACTER VARYING),
   name       CHARACTER VARYING(255)      NOT NULL,
   code       CHARACTER VARYING(255)      NOT NULL,
-  enabled    BOOLEAN                     NOT NULL DEFAULT TRUE,
+  revoked    BOOLEAN                     NOT NULL DEFAULT FALSE,
   symbol     CHARACTER VARYING(255)      NOT NULL,
   comment    CHARACTER VARYING(255)      NOT NULL DEFAULT 'currency',
   created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
