@@ -4,10 +4,12 @@
     "description": "A model framework defined some common models, or models in specified cases, powered by sequelize",
     "main": "lib/index.js",
     "scripts": {
+        "test": "mocha unit --recursive",
+
         "compile": "babel src/main/js -d lib --presets es2015,stage-0 --plugins transform-runtime",
         "testc": "babel src/test/js -d unit --presets es2015,stage-0 --plugins transform-runtime",
         "testr": "babel src/test/resources -D -d etc",
-        "test": "npm run compile && npm run testc && npm run testr && mocha unit --recursive"
+        "testd": "npm run compile && npm run testc && npm run testr && npm run test"
     },
     "repository": {
         "type": "git",
