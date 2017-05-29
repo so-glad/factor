@@ -8,7 +8,7 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from './ModelClass';
+import ModelClass from '../../../ModelClass';
 
 export default class OAuthTokenClass extends ModelClass {
 
@@ -57,7 +57,8 @@ export default class OAuthTokenClass extends ModelClass {
             },
             expiresAt: {
                 type: Sequelize.DATE,
-                field: 'expires_at'
+                field: 'expires_at',
+                defaultValue: Sequelize.NOW
             },
             refreshToken: {
                 type: Sequelize.STRING,
@@ -68,7 +69,7 @@ export default class OAuthTokenClass extends ModelClass {
             remindAt: {
                 type: Sequelize.DATE,
                 field: 'remind_at',
-                defaultValue: ''
+                defaultValue: Sequelize.NOW
             },
             scope: {
                 type: Sequelize.STRING,

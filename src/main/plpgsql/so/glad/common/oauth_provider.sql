@@ -21,7 +21,7 @@ COMMENT ON TABLE public.oauth_provider
 
 -- It's not required to create the table oauth_provider_user but its the structure to 
 -- dynamicly create table oauth_[provider_type]_[provider_client_id];
-create table public.oauth_provider_token (
+create table public.oauth_access (
     type          CHARACTER VARYING(255) NOT NULL,
     client_id     CHARACTER VARYING(255) NOT NULL,
     action        CHARACTER VARYING(255) NOT NULL,
@@ -43,7 +43,7 @@ create table public.oauth_provider_token (
 )
 -- It's not required to create the table oauth_provider_user but its the structure to 
 -- dynamicly create table oauth_[provider_type]_[provider_client_id];
-CREATE TABLE public.oauth_provider_user 
+CREATE TABLE public.oauth_user
 (
     type              CHARACTER VARYING(255) NOT NULL,
     client_user_keys  JSON,

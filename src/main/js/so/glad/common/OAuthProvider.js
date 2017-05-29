@@ -9,7 +9,7 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from './ModelClass';
+import ModelClass from '../../../ModelClass';
 
 export default class OAuthProviderClass extends ModelClass {
 
@@ -27,7 +27,9 @@ export default class OAuthProviderClass extends ModelClass {
 
             paranoid: false,
 
-            underscored: true
+            underscored: true,
+
+            defaultScope: {revoked: false}
         };
     }
 

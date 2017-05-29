@@ -9,7 +9,7 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from './ModelClass';
+import ModelClass from '../../../ModelClass';
 
 export default class LanguageClass extends ModelClass {
 
@@ -31,7 +31,7 @@ export default class LanguageClass extends ModelClass {
         return {
             schema: 'public',
 
-            tableName: 'region',
+            tableName: 'language',
 
             timestamps: true,
 
@@ -58,11 +58,14 @@ export default class LanguageClass extends ModelClass {
             },
             code: {
                 type: Sequelize.STRING,
-                field: 'code'
+                field: 'code',
+                allowNull: false,
+                unique: true
             },
-            sign: {
+            nativeName: {
                 type: Sequelize.STRING,
-                field: 'sign'
+                field: 'native_name',
+                allowNull: false,
             },
             revoked: {
                 type: Sequelize.BOOLEAN,

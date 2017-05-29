@@ -14,6 +14,7 @@ CREATE TABLE public.locale
   code        CHARACTER VARYING(255)         NOT NULL,
   native_name CHARACTER VARYING(255)         NOT NULL,
   revoked     BOOLEAN                        NOT NULL DEFAULT FALSE,
+  sort        INTEGER NOT NULL DEFAULT 1,
   language_id BIGINT NOT NULL DEFAULT 0,
   region_id BIGINT NOT NULL DEFAULT 0,
   comment     CHARACTER VARYING(255),

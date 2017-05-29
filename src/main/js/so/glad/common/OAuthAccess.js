@@ -9,7 +9,7 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from './ModelClass';
+import ModelClass from '../../../ModelClass';
  
 export default class OAuthAccessClass extends ModelClass {
 
@@ -79,9 +79,9 @@ export default class OAuthAccessClass extends ModelClass {
                 type: Sequelize.INTEGER,
                 field: 'refresh_time'
             },
-            userId: {
+            userKey: {
                 type: Sequelize.STRING,
-                field: 'uid',
+                field: 'user_key',
                 allowNull: true
             }
         };

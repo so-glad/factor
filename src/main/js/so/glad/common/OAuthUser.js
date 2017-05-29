@@ -8,7 +8,7 @@
 
 import Sequelize from 'sequelize';
 
-import ModelClass from './ModelClass';
+import ModelClass from '../../../ModelClass';
 
 export default class OAuthUserClass extends ModelClass {
 
@@ -19,7 +19,7 @@ export default class OAuthUserClass extends ModelClass {
     };
 
     get name() {
-        return 'oauth_user';
+        return 'OAuthUser';
     }
 
     get belongsToDefine() {

@@ -9,7 +9,7 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from './ModelClass';
+import ModelClass from '../../../ModelClass';
 
 export default class LocaleClass extends ModelClass {
 
@@ -58,11 +58,12 @@ export default class LocaleClass extends ModelClass {
             },
             code: {
                 type: Sequelize.STRING,
-                field: 'code'
+                field: 'code',
+                unique: true
             },
-            sign: {
+            nativeName: {
                 type: Sequelize.STRING,
-                field: 'sign'
+                field: 'native_name'
             },
             revoked: {
                 type: Sequelize.BOOLEAN,

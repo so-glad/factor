@@ -9,15 +9,11 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from './ModelClass';
+import ModelClass from '../../../ModelClass';
 
 export default class RegionClass extends ModelClass {
 
     static belongsToDefines = [];
-
-    static addBelongTo = (type, as, foreignKey) => {
-        UserClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
-    };
 
     get name() {
         return 'Region';
@@ -54,24 +50,31 @@ export default class RegionClass extends ModelClass {
             },
             name: {
                 type: Sequelize.STRING,
+                allowNull: false,
                 field: 'name'
             },
             code: {
                 type: Sequelize.STRING,
-                field: 'code'
+                field: 'code',
+                allowNull: false,
+                unique: true
             },
             sign: {
                 type: Sequelize.STRING,
-                field: 'sign'
+                field: 'sign',
+                allowNull: false,
+                unique: true
             },
             revoked: {
                 type: Sequelize.BOOLEAN,
                 field: 'revoked',
+                allowNull: false,
                 defaultValue: false
             },
             sort: {
                 type: Sequelize.INTEGER,
                 field: 'sort',
+                allowNull: false,
                 defaultValue: 1
             },
             comment: {

@@ -47,10 +47,14 @@ export default class ModelClass {
 
         this.delegate = this.provider.define(this.name, this.fieldsDefine, options);
 
+        while(options.belongsToDefines && options.belongsToDefines.length > 0){
+            this.belongsToDefine.push(options.belongsToDefines.shift());
+        }
         if (this.belongsToDefine.length > 0) {
             for (const index in this.belongsToDefine) {
                 const belongTo = this.belongsToDefine[index];
-                this.delegate.belongsTo(belongTo.type, {as: belongTo.as, foreignKey: belongTo.foreignKey});
+                this.delegate.belongsTo(belongTo.type ? belongTo.type : this.delegate,
+                    {as: belongTo.as, foreignKey: belongTo.foreignKey});
             }
         }
 

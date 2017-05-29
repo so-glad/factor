@@ -1,0 +1,47 @@
+{
+    "path": {
+        "root": "${APP_HOME}",
+        "server": "src/test/js",
+        "resources": "src/test/resources",
+        "client": "src/test/web"
+    },
+    "log4js": {
+        "cwd": "var/logs",
+        "appenders": [
+            {
+                "category": "factor",
+                "type": "dateFile",
+                "filename": "factor.log",
+                "pattern": "-yyyy-MM-dd",
+                "alwaysIncludePattern": false
+            },
+            {
+                "category": "factor-db",
+                "type": "dateFile",
+                "filename": "factor-db.log",
+                "pattern": "-yyyy-MM-dd",
+                "alwaysIncludePattern": false
+            }
+        ]
+    },
+    "databases": {
+        "common": {
+            "dialect": "postgres",
+            "host": "127.0.0.1",
+            "port": 5432,
+            "name": "common",
+            "username": "soglad",
+            "password": "soglad",
+            "logging": "factor-db"
+        },
+        "factor": {
+            "dialect": "postgres",
+            "host": "127.0.0.1",
+            "port": 5432,
+            "name": "fusion",
+            "username": "soglad",
+            "password": "soglad",
+            "logging": "factor-db"
+        }
+    }
+}

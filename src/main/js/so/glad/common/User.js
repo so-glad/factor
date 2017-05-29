@@ -9,7 +9,7 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from './ModelClass';
+import ModelClass from '../../../ModelClass';
 
 export default class UserClass extends ModelClass {
 
@@ -55,6 +55,7 @@ export default class UserClass extends ModelClass {
             username: {
                 type: Sequelize.STRING,
                 field: 'username',
+                allowNull: false,
                 unique: true
             },
             password: {

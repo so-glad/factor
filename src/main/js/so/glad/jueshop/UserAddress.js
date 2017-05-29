@@ -2,7 +2,7 @@
 
 /**
  * @author palmtale
- * @since 2017/5/28.
+ * @since 2017/5/29.
  */
 
 
@@ -11,17 +11,27 @@ import Sequelize from 'sequelize';
 
 import ModelClass from '../../../ModelClass';
 
-export default class ProjectClass extends ModelClass {
+export default class UserAddressClass extends ModelClass {
+
+    static belongsToDefines = [];
+
+    static addBelongTo = (type, as, foreignKey) => {
+        UserAddressClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
+    };
 
     get name() {
-        return 'Project';
+        return 'UserAddress';
+    }
+
+    get belongsToDefine() {
+        return UserAddressClass.belongsToDefines;
     }
 
     get defaultOptions() {
         return {
             schema: 'public',
 
-            tableName: 'project',
+            tableName: 'user_address',
 
             timestamps: true,
 
@@ -42,23 +52,31 @@ export default class ProjectClass extends ModelClass {
                 defaultValue: Sequelize.DEFAULT,
                 field: 'id'
             },
-            name: {
+            alias: {
                 type: Sequelize.STRING,
-                field: 'name'
+                field: 'alias'
             },
-            sign: {
+            content: {
                 type: Sequelize.STRING,
-                field: 'sign'
+                field: 'content'
             },
-            types: {
+            zipCode: {
                 type: Sequelize.STRING,
-                field: 'types',
+                field: 'zip_code'
+            },
+            contact: {
+                type: Sequelize.STRING,
+                field: 'contact'
+            },
+            telNumber: {
+                type: Sequelize.STRING,
+                field: 'tel_number'
+            },
+            sort: {
+                type: Sequelize.INTEGER,
+                field: 'sort',
                 allowNull: false,
-                defaultValue: 'web'
-            },
-            comment: {
-                type: Sequelize.STRING,
-                field: 'comment'
+                defaultValue: 1
             }
         };
     }
