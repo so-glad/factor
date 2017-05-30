@@ -9,7 +9,7 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from '../../../ModelClass';
+import ModelClass from '../ModelClass';
 
 export default class LanguageClass extends ModelClass {
 

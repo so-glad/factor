@@ -9,9 +9,9 @@
 import log4js from 'log4js';
 import Sequelize from 'sequelize';
 
-import config from '../../../etc/config';
-import Common from '../../../lib/so/glad/common/index';
-import JueShop from '../../../lib/so/glad/jueshop/index'
+import config from '../etc/config';
+import Common from '../lib/common/index';
+import JueShop from '../lib/jueshop/index'
 
 class Context {
 

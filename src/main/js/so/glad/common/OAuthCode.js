@@ -8,7 +8,7 @@
 import Sequelize from 'sequelize';
 
 
-import ModelClass from '../../../ModelClass';
+import ModelClass from '../ModelClass';
 
 export default class OAuthCodeClass extends ModelClass {
 

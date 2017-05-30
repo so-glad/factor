@@ -8,8 +8,6 @@
 
 import chai from 'chai';
 
-import RoleClass from '../../../../lib/so/glad/common//Role';
-import UserClass from '../../../../lib/so/glad/common//User';
 import context from '../context';
 
 chai.should();

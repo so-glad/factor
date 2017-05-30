@@ -9,7 +9,7 @@
 import chai from "chai";
 
 import context from "../context";
-import OAuthAccessClass from '../../../../lib/so/glad/common/OAuthAccess';
+import OAuthAccessClass from '../../lib/common/OAuthAccess';
 
 chai.should();
 

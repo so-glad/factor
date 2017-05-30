@@ -5,8 +5,6 @@
  * @since 2017/5/3.
  */
 
-import _ from 'lodash';
-
 
 export default class ModelClass {
 
@@ -33,7 +31,7 @@ export default class ModelClass {
     delegate = null;
 
     constructor(provider, options) {
-        options = _.cloneDeep(options);
+        options = Object.assign({}, options);
         this.provider = provider;
 
         for (const option in this.defaultOptions) {

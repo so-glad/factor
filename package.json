@@ -6,8 +6,8 @@
     "scripts": {
         "test": "mocha unit --recursive",
 
-        "compile": "babel src/main/js -d lib --presets es2015,stage-0 --plugins transform-runtime",
-        "testc": "babel src/test/js -d unit --presets es2015,stage-0 --plugins transform-runtime",
+        "compile": "babel src/main/js/so/glad -d lib --presets es2015,stage-0 --plugins transform-runtime",
+        "testc": "babel src/test/js/so/glad -d unit --presets es2015,stage-0 --plugins transform-runtime",
         "testr": "babel src/test/resources -D -d etc",
         "testd": "npm run compile && npm run testc && npm run testr && npm run test"
     },
