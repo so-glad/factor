@@ -23,8 +23,9 @@ export default class JueShop {
     OrderClass = OrderClass;
 
     constructor(provider, options) {
-        const {User} = options.models;
+        const {User, Region} = options.models;
         UserAddressClass.addBelongTo(User.delegate, 'user', 'user_id');
+        UserAddressClass.addBelongTo(Region.delegate, 'region', 'region_id');
         const UserAddress = new UserAddressClass(provider, options);
         this._models.UserAddress = UserAddress;
     }

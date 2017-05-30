@@ -13,11 +13,11 @@ CREATE TABLE public.user_address
     alias      CHARACTER VARYING(255),
     content    CHARACTER VARYING(255) NOT NULL,
     zip_code   CHARACTER VARYING(255),
-    contact    CHARACTER VARYING(255),
-    tel_number CHARACTER VARYING(255),
+    contact    CHARACTER VARYING(255) NOT NULL,
+    tel_number CHARACTER VARYING(255) NOT NULL,
     sort       INTEGER NOT NULL DEFAULT 1,
     user_id    BIGINT NOT NULL,
-    region_id  BIGINT,
+    region_id  BIGINT ,
     created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
     updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
     CONSTRAINT user_address_pkey PRIMARY KEY (id)
@@ -25,6 +25,12 @@ CREATE TABLE public.user_address
 WITH (OIDS = FALSE) TABLESPACE soglad;
 ALTER TABLE public.user_address OWNER to soglad;
 
+CREATE INDEX user_address_zip_code_index
+  ON public.user_address USING BTREE (zip_code) TABLESPACE soglad;
+CREATE INDEX user_address_tel_number_index
+  ON public.user_address USING BTREE (tel_number) TABLESPACE soglad;
+CREATE INDEX user_address_contact_index
+  ON public.user_address USING BTREE (contact) TABLESPACE soglad;
 CREATE INDEX user_address_user_id_index
   ON public.user_address USING BTREE (user_id) TABLESPACE soglad;
 CREATE INDEX user_address_region_id_index

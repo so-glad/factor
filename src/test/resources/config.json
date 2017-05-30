@@ -38,7 +38,7 @@
             "dialect": "postgres",
             "host": "127.0.0.1",
             "port": 5432,
-            "name": "common",
+            "name": "jueshop",
             "username": "soglad",
             "password": "soglad",
             "logging": "factor-db"

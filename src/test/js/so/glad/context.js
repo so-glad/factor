@@ -54,7 +54,6 @@ class Context {
         }
 
         const common = new Common(this.persistence.common, {schema: 'test'});
-
         for(const key in common.models) {
             this.module('model.common.' + key, common.models[key])
         }
