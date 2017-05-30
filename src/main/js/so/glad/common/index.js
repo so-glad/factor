@@ -82,4 +82,20 @@ export default class {
         this._models.OAuthProvider = OAuthProvider;
     };
 
+    ProjectClass = ProjectClass;
+    UserAgentClass = UserAgentClass;
+    RoleClass = RoleClass;
+    UserClass = UserClass;
+    CurrencyClass = CurrencyClass;
+    RegionClass = RegionClass;
+    LanguageClass = LanguageClass;
+    LocaleClass = LocaleClass;
+    CompanyClass = CompanyClass;
+
+    OAuthClientClass = OAuthClientClass;
+    OAuthCodeClass = OAuthCodeClass;
+    OAuthTokenClass = OAuthTokenClass;
+    OAuthProviderClass = OAuthProviderClass;
+    OAuthAccessClass = OAuthAccessClass;
+    OAuthUserClass = OAuthUserClass;
 }

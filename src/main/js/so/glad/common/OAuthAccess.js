@@ -29,7 +29,7 @@ export default class OAuthAccessClass extends ModelClass {
 
     get defaultOptions() {
         return {
-            schema: 'heap',
+            schema: 'public',
 
             tableName: 'oauth_access',
 

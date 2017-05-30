@@ -15,15 +15,15 @@ CREATE TABLE public.locale
   native_name CHARACTER VARYING(255)         NOT NULL,
   revoked     BOOLEAN                        NOT NULL DEFAULT FALSE,
   sort        INTEGER NOT NULL DEFAULT 1,
-  language_id BIGINT NOT NULL DEFAULT 0,
-  region_id BIGINT NOT NULL DEFAULT 0,
+  language_id BIGINT,
+  region_id   BIGINT,
   comment     CHARACTER VARYING(255),
   created_at  TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at  TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT locale_pkey PRIMARY KEY (id),
   CONSTRAINT locale_code_unique UNIQUE (code),
   CONSTRAINT locale_language_id_foreign FOREIGN KEY (language_id)
-  REFERENCES public.locale (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
+  REFERENCES public.language (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT locale_region_id_foreign FOREIGN KEY (region_id)
   REFERENCES public.region (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
 ) WITH (OIDS = FALSE) TABLESPACE soglad;

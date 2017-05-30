@@ -59,7 +59,7 @@ class Context {
             this.module('model.common.' + key, common.models[key])
         }
 
-        const jueshop = new JueShop(this.persistence.jueshop, {schema: 'test'});
+        const jueshop = new JueShop(this.persistence.jueshop, {schema: 'test', models: common.models});
         for(const key in jueshop.models) {
             this.module('model.jueshop.' + key, jueshop.models[key]);
         }

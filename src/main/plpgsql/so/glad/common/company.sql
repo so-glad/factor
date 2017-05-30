@@ -17,7 +17,7 @@ CREATE TABLE public.company
   category    CHARACTER VARYING(255)      NOT NULL DEFAULT 'LTD',
   capital     DECIMAL(20, 2)              NOT NULL DEFAULT 10000.00,
   currency_id BIGINT                      NOT NULL DEFAULT 1,
-  found_date  TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  found_date  TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   chairman    CHARACTER VARYING(255)      NOT NULL,
   address     CHARACTER VARYING(255)      NOT NULL,
   industry    CHARACTER VARYING(255)      NOT NULL,
@@ -36,6 +36,24 @@ ALTER TABLE public.company OWNER TO soglad;
 
 CREATE INDEX company_identity_index
   ON public.company USING BTREE (identity) TABLESPACE soglad;
+
+CREATE INDEX company_currency_id_index
+  ON public.company USING BTREE (currency_id) TABLESPACE soglad;
+CREATE INDEX company_alias_index
+  ON public.company USING BTREE (alias) TABLESPACE soglad;
+CREATE INDEX company_category_index
+  ON public.company USING BTREE (category) TABLESPACE soglad;
+CREATE INDEX company_capital_index
+  ON public.company USING BTREE (capital) TABLESPACE soglad;
+CREATE INDEX company_found_date_index
+  ON public.company USING BTREE (found_date) TABLESPACE soglad;
+CREATE INDEX company_industry_index
+  ON public.company USING BTREE (industry) TABLESPACE soglad;
+CREATE INDEX company_size_index
+  ON public.company USING BTREE (size) TABLESPACE soglad;
+CREATE INDEX company_business_index
+  ON public.company USING BTREE (business) TABLESPACE soglad;
+
 
 INSERT INTO public.company (identity, name, alias, category, capital, found_date, chairman, address, industry, business, summary)
 VALUES

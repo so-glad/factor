@@ -20,6 +20,8 @@ ALTER TABLE public.currency OWNER TO soglad;
 
 CREATE INDEX currency_code_index
   ON public.currency USING BTREE (code) TABLESPACE soglad;
+CREATE INDEX currency_name_index
+  ON public.currency USING BTREE (name) TABLESPACE soglad;
 
 INSERT INTO public.currency ("name", code, symbol) VALUES
   ('dollar', 'USD', '$'),

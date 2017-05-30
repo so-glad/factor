@@ -28,25 +28,25 @@ describe('Locale model test', () => {
 
     it('Find or create Locale zh_CN, region china, language zh', () => {
         return Promise.all([
-            Region.findOrCreate({where: {sign:'China'}, defaults: {name:'中国', code:'0086000000', comment: '中华人民共和国'}}),
-            Language.findOrCreate({where: {code: 'zh'}, defaults: {name:'Chinese', nativeName:'汉语', comment: '中文'}})
+            Region.findOrCreate({where: {sign:'Chinas'}, defaults: {name:'中国', code:'1086000000', comment: '中华人民共和国'}}),
+            Language.findOrCreate({where: {code: 'zhx'}, defaults: {name:'Chinese', nativeName:'汉语', comment: '中文'}})
         ]).then(results => {
             const region = results[0][0];
             const language = results[1][0];
-            return Locale.create({name:'SimpleChinese', code: 'zh_CN', nativeName:'简体中文', region_id: region.id, language_id: language.id});
+            return Locale.create({name:'SimpleChinese', code: 'zh_CNx', nativeName:'简体中文', region_id: region.id, language_id: language.id});
         }).then(locale => {
             locale.name.should.equal('SimpleChinese');
             return Promise.all([locale.getRegion(), locale.getLanguage()]);
         }).then(results => {
             const region = results[0];
             const language = results[1];
-            region.sign.should.equal('China');
+            region.sign.should.equal('Chinas');
             language.name.should.equal('Chinese');
         });
     });
 
     it('Retrieve and update locale', () => {
-        return Locale.findOne({where: {code: 'zh_CN'}})
+        return Locale.findOne({where: {code: 'zh_CNx'}})
             .then(chinese => {
                 chinese.should.have.property('name');
                 chinese.name.should.equal('SimpleChinese');
@@ -58,7 +58,7 @@ describe('Locale model test', () => {
     });
 
     it('Retrieve and delete locale', () => {
-        return Locale.findOne({where: {code: 'zh_CN'}})
+        return Locale.findOne({where: {code: 'zh_CNx'}})
             .then(locale => Promise.all([locale.destroy(), locale.getRegion(), locale.getLanguage()]))
             .then(result => {
                 result[0].length.should.equal(0);

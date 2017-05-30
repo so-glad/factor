@@ -30,19 +30,19 @@ CREATE INDEX oauth_client_user_id_index
   ON public.oauth_client USING BTREE (user_id)
 TABLESPACE soglad;
 
-ALTER TABLE public.oauth_client
-    ALTER COLUMN grant_types TYPE integer ;
 COMMENT ON COLUMN public.oauth_client.grant_types
     IS 'Each binary bit express a boolean value of a type. 16:refresh_token 8:proxy 4:client_credentials 2:password 1:authorization_code';
--- Table: public.oauth_auth_code
 
--- DROP TABLE public.oauth_auth_code;
+-- Table: public.oauth_code
+
+-- DROP TABLE public.oauth_code;
 
 -- This is a timeliness entity, would be better store in mem.
 CREATE TABLE public.oauth_code
 (
   code       CHARACTER VARYING(255) NOT NULL,
   scope      TEXT,
+  redirect_uri CHARACTER VARYING(255) NOT NULL,
   revoked    BOOLEAN                NOT NULL DEFAULT FALSE,
   expires_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL,
   user_id    BIGINT                 NOT NULL,

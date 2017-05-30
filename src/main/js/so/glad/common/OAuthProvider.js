@@ -38,16 +38,19 @@ export default class OAuthProviderClass extends ModelClass {
             type: {
                 type: Sequelize.STRING,
                 field: 'type',
+            },
+            key: {
+                type: Sequelize.STRING,
+                field: 'key'
+            },
+            appId: {
+                type: Sequelize.STRING,
+                field: 'app_id',
                 primaryKey: true
             },
-            clientId: {
+            appSecret: {
                 type: Sequelize.STRING,
-                field: 'client_id',
-                primaryKey: true
-            },
-            clientSecret: {
-                type: Sequelize.STRING,
-                field: 'client_secret'
+                field: 'app_secret'
             },
             revoked: {
                 type: Sequelize.BOOLEAN,

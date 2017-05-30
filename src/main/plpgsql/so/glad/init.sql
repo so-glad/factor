@@ -24,6 +24,15 @@ CREATE DATABASE common
 
 COMMENT ON DATABASE common IS 'The common database';
 
+CREATE DATABASE jueshop
+    WITH
+    OWNER = soglad
+    ENCODING = 'UTF8'
+    TABLESPACE = soglad
+    CONNECTION LIMIT = -1;
+
+COMMENT ON DATABASE common IS 'The database for ele shop';
+
 CREATE DATABASE pmi
     WITH 
     OWNER = soglad

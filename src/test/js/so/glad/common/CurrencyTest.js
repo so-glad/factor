@@ -26,7 +26,7 @@ describe('Currency model test', () => {
     });
 
     it('Create currency', () => {
-        return Currency.create({name: 'renmingbi', code: 'CNY', symbol: '¥'})
+        return Currency.create({name: 'RenMingBi', code: 'CNY_', symbol: '¥'})
             .then(currency => {
                 currency.should.have.property('id');
                 currency.id.should.not.equal(0);
@@ -34,10 +34,10 @@ describe('Currency model test', () => {
     });
 
     it('Retrieve and update currency', () => {
-        return Currency.findOne({where: {code: 'CNY'}})
+        return Currency.findOne({where: {code: 'CNY_'}})
             .then(currency => {
                 currency.should.have.property('name');
-                currency.name.should.equal('renmingbi');
+                currency.name.should.equal('RenMingBi');
                 currency.should.have.property('symbol');
                 currency.symbol.should.equal('¥');
                 return currency.update({name: 'Renmingbiya'});
@@ -47,7 +47,7 @@ describe('Currency model test', () => {
     });
 
     it('Retrieve and delete currency', () => {
-        return Currency.findOne({where: {code: 'CNY'}})
+        return Currency.findOne({where: {code: 'CNY_'}})
             .then(currency => currency.destroy())
             .then(result => result.length.should.equal(0));
     });

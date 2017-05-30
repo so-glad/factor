@@ -31,6 +31,8 @@ CREATE INDEX region_code_index
   ON public.region USING BTREE (code) TABLESPACE soglad;
 CREATE INDEX region_sign_index
   ON public.region USING BTREE (sign) TABLESPACE soglad;
+CREATE INDEX region_parent_id_index
+  ON public.region USING BTREE (parent_id) TABLESPACE soglad;
 
 INSERT INTO public.region (name, code, sign, parent_id, sort, comment) VALUES ('中国', '0086000000', 'China', null, 1, '中华人民共和国');
 INSERT INTO public.region (name, code, sign, parent_id, sort, comment) VALUES

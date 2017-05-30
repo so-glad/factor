@@ -2,8 +2,8 @@ CREATE TABLE public.oauth_provider
 (
     type          CHARACTER VARYING(255) NOT NULL,
     key           CHARACTER VARYING(255),
-    id            CHARACTER VARYING(255) NOT NULL,
-    secret        CHARACTER VARYING(255) NOT NULL,
+    app_id        CHARACTER VARYING(255) NOT NULL,
+    app_secret    CHARACTER VARYING(255) NOT NULL,
     name          CHARACTER VARYING(255),
     redirect_url  CHARACTER VARYING(255),
     revoked       BOOLEAN                NOT NULL DEFAULT FALSE,
@@ -15,13 +15,18 @@ CREATE TABLE public.oauth_provider
     CONSTRAINT oauth_provider_pkey PRIMARY KEY (type, client_id)
 ) WITH (OIDS = FALSE) TABLESPACE soglad;
 
+CREATE INDEX oauth_provider_type_index
+  ON public.oauth_provider USING BTREE (type) TABLESPACE soglad;
+CREATE INDEX oauth_provider_key_index
+  ON public.oauth_provider USING BTREE (key) TABLESPACE soglad;
+
 ALTER TABLE public.oauth_provider OWNER to soglad;
 COMMENT ON TABLE public.oauth_provider
     IS 'Config, Expressed which provider we connected, via their clientId, client secrete';
 
 -- It's not required to create the table oauth_provider_user but its the structure to 
 -- dynamicly create table oauth_[provider_type]_[provider_client_id];
-create table public.oauth_access (
+CREATE TABLE public.oauth_access (
     type          CHARACTER VARYING(255) NOT NULL,
     client_id     CHARACTER VARYING(255) NOT NULL,
     action        CHARACTER VARYING(255) NOT NULL,

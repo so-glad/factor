@@ -26,8 +26,8 @@ describe('OAuthProvider model test', () => {
 
     it('Create oauth provider after created client/app on github', () => {
         return OAuthProvider.create({
-            type: 'github', clientId: '1234567',
-            clientSecret: 'client secret',
+            type: 'github', appId: '1234567',
+            appSecret: 'client secret',
             name: 'Palmtale', redirectUrl: 'http://test.glad.so/redirect',
             authorizeUrl: 'hhttps://github.com/login/oauth/authorize',
             tokenUrl: 'https://github.com/login/oauth/token',
@@ -39,17 +39,17 @@ describe('OAuthProvider model test', () => {
     });
 
     it('Retrieve the oauth provider of github used on web and update', () => {
-        return OAuthProvider.findOne({where: {type: 'github', clientId: '1234567'}})
+        return OAuthProvider.findOne({where: {type: 'github', appId: '1234567'}})
             .then(provider => {
-                provider.clientSecret.should.equal('client secret');
-                return provider.update({clientSecret: 'ClientSecret'});
+                provider.appSecret.should.equal('client secret');
+                return provider.update({appSecret: 'ClientSecret'});
             }).then(updatedProvder => {
-                updatedProvder.clientSecret.should.equal('ClientSecret');
+                updatedProvder.appSecret.should.equal('ClientSecret');
             });
     });
 
     it('Retrieve the oauth provider of github used on web and delete', () => {
-        return OAuthProvider.findOne({where: {type: 'github', clientId: '1234567'}})
+        return OAuthProvider.findOne({where: {type: 'github', appId: '1234567'}})
             .then(provider => provider.destroy())
             .then(result => result.length.should.equal(0));
     });

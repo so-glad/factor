@@ -34,11 +34,11 @@
             "password": "soglad",
             "logging": "factor-db"
         },
-        "factor": {
+        "jueshop": {
             "dialect": "postgres",
             "host": "127.0.0.1",
             "port": 5432,
-            "name": "fusion",
+            "name": "common",
             "username": "soglad",
             "password": "soglad",
             "logging": "factor-db"

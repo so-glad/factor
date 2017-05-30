@@ -6,6 +6,10 @@
  */
 
 
+import UserAddressClass from './UserAddress';
+import GoodsClass from './Goods';
+import OrderClass from './Order';
+
 export default class JueShop {
 
     _models = {};
@@ -14,7 +18,14 @@ export default class JueShop {
         return this._models;
     }
 
-    constructor(provider, options) {
+    UserAddressClass = UserAddressClass;
+    GoodsClass = GoodsClass;
+    OrderClass = OrderClass;
 
+    constructor(provider, options) {
+        const {User} = options.models;
+        UserAddressClass.addBelongTo(User.delegate, 'user', 'user_id');
+        const UserAddress = new UserAddressClass(provider, options);
+        this._models.UserAddress = UserAddress;
     }
 }

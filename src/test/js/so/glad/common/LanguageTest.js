@@ -25,9 +25,9 @@ describe('Language model test', () => {
         Language.should.have.property('destroy');
     });
 
-    it('Find or create Language zh', () => {
-        return Language.findOrCreate({where: {code: 'zh'},
-            defaults: {name:'Chinese', code:'zh', nativeName: '汉语',comment: '中文'}})
+    it('Find or create Language zhx', () => {
+        return Language.findOrCreate({where: {code: 'zhx'},
+            defaults: {name:'Chinese', code:'zhx', nativeName: '汉语',comment: '中文'}})
             .spread(language => {
                 language.should.have.property('id');
                 language.id.should.not.equal(0);
@@ -35,7 +35,7 @@ describe('Language model test', () => {
     });
 
     it('Retrieve and update language', () => {
-        return Language.findOne({where: {code: 'zh'}})
+        return Language.findOne({where: {code: 'zhx'}})
             .then(chinese => {
                 chinese.should.have.property('name');
                 chinese.name.should.equal('Chinese');
@@ -46,7 +46,7 @@ describe('Language model test', () => {
     });
 
     it('Retrieve and delete language', () => {
-        return Language.findOne({where: {code: 'zh'}})
+        return Language.findOne({where: {code: 'zhx'}})
             .then(language => language.destroy())
             .then(result => result.length.should.equal(0));
     });

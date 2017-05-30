@@ -28,7 +28,7 @@ export default class OAuthClientClass extends ModelClass {
 
     get defaultOptions() {
         return {
-            schema: 'oauth',
+            schema: 'public',
 
             tableName: 'oauth_client',
 

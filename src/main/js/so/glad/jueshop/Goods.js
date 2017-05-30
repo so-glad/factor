@@ -13,5 +13,7 @@ import ModelClass from '../ModelClass';
 
 export default class GoodsClass extends ModelClass {
 
-
+    constructor(provider, options) {
+        super(provider, options);
+    }
 };

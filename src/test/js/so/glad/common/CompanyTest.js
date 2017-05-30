@@ -27,10 +27,10 @@ describe('Company model test', () => {
     });
 
     it('Create company for currency RMB', () => {
-        return Currency.findOrCreate({where: {code: 'CNY'}})
+        return Currency.findOrCreate({where: {code: 'CNY_'}, defaults: {name: 'Renmb', symbol: '£'}})
             .spread(rmb => {
                 return Company.create({identity: '930davc4fda46f1da', name:'臻快网络科技（上海）有限公司', alias: '臻快网络',
-                    capital: 10000000.00, foundDate: new Date(),
+                    capital: 10000000.00, foundDate: new Date(), chairman: '狗儿子', address: '好地方', industry: 'Network',
                     currency_id: rmb.id})
             }).then(company => {
                 company.should.have.property('id');

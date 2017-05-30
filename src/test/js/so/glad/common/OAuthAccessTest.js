@@ -17,7 +17,7 @@ const User = context.module('model.common.User');
 const OAuthProvider = context.module('model.common.OAuthProvider');
 
 OAuthAccessClass.addBelongTo(User.delegate, 'user', 'user_id');
-OAuthAccessClass.addBelongTo(OAuthProvider.delegate, 'providerClient', 'client_id');
+OAuthAccessClass.addBelongTo(OAuthProvider.delegate, 'provider', 'app_id');
 const OAuthAccess = new OAuthAccessClass(context.persistence.common, {schema: 'test'});
 
 describe('OAuthAccess model test', () => {
@@ -33,8 +33,8 @@ describe('OAuthAccess model test', () => {
     it('Create oauth access on github', () => {
         return Promise.all([
             User.findOrCreate({where: {username: 'palmtale'}, defaults: {password:'Weibo', alias:'PalmTale'}}),
-            OAuthProvider.findOrCreate({where: {type:'github', clientId: '1234567'}, defaults: {type: 'github',
-                clientId: '1234567', clientSecret: 'client secret',
+            OAuthProvider.findOrCreate({where: {type:'github', appId: '1234567'}, defaults: {type: 'github',
+                appId: '1234567', appSecret: 'client secret',
                 name: 'Palmtale', redirectUrl: 'http://test.glad.so/redirect',
                 authorizeUrl: 'hhttps://github.com/login/oauth/authorize',
                 tokenUrl: 'https://github.com/login/oauth/token',
@@ -45,23 +45,23 @@ describe('OAuthAccess model test', () => {
             return OAuthAccess.create({
                 type:'github', action: 'login', scope:'user', state: 'testState',
                 accessToken: 'githubAccessToken', refreshToken: 'githubRefreshToken', accessTime: 3900,
-                refreshTime: 3900, userKey: 'col', user_id: user.id, client_id: provider.clientId
+                refreshTime: 3900, userKey: 'col', user_id: user.id, app_id: provider.appId
             });
         }).then(access => {
             access.type.should.equal('github');
             access.accessToken.should.equal('githubAccessToken');
-            return Promise.all([access.getUser(), access.getProviderClient()]);
+            return Promise.all([access.getUser(), access.getProvider()]);
         }).then(results => {
             const user = results[0];
-            // const provider = results[1];
+            const provider = results[1];
             user.username.should.equal('palmtale');
-            // provider.client_id.should.equal('1234567');
+            provider.appId.should.equal('1234567');
         });
     });
 
     it('Retrieve the oauth provider of github used on web and delete', () => {
         return OAuthAccess.findOne({where: {type:'github', action: 'login', scope:'user', state: 'testState',}})
-            .then(access => Promise.all([access.destroy(), OAuthProvider.findOne({where: {type:'github', clientId:'1234567'}}).then(provider=> provider.destroy())]))
+            .then(access => Promise.all([access.destroy(), OAuthProvider.findOne({where: {type:'github', appId:'1234567'}}).then(provider=> provider.destroy())]))
             .then(result => result[0].length.should.equal(0) && result[1].length.should.equal(0));
     });
 });

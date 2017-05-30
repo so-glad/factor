@@ -58,7 +58,7 @@ CREATE TABLE public.user (
   email_verified  BOOLEAN                     NOT NULL DEFAULT FALSE,
   mobile          CHARACTER VARYING(255),
   mobile_verified BOOLEAN                     NOT NULL DEFAULT FALSE,
-  role_id         BIGINT                      NOT NULL DEFAULT 1,
+  role_id         BIGINT                      NOT NULL DEFAULT 2,
   created_at      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
   updated_at      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
   CONSTRAINT user_pkey PRIMARY KEY (id),
