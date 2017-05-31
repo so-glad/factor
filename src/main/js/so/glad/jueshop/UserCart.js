@@ -11,27 +11,27 @@ import Sequelize from 'sequelize';
 
 import ModelClass from '../ModelClass';
 
-export default class PromotionClass extends ModelClass {
+export default class UserCartClass extends ModelClass {
 
     static belongsToDefines = [];
 
     static addBelongTo = (type, as, foreignKey) => {
-        PromotionClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
+        UserCartClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
     };
 
     get name() {
-        return 'PromotionClass';
+        return 'UserCart';
     }
 
     get belongsToDefine() {
-        return PromotionClass.belongsToDefines;
+        return UserCartClass.belongsToDefines;
     }
 
     get defaultOptions() {
         return {
             schema: 'public',
 
-            tableName: 'promotion',
+            tableName: 'user_cart',
 
             timestamps: true,
 
@@ -45,7 +45,7 @@ export default class PromotionClass extends ModelClass {
 
     get fieldsDefine() {
         return {
-            id: {
+            userId: {
                 type: Sequelize.BIGINT,
                 primaryKey: true,
                 autoIncrement: false,

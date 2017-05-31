@@ -9,17 +9,27 @@
 import Sequelize from 'sequelize';
 import ModelClass from '../ModelClass'
 
-export default class GoodsCategoryClass extends ModelClass {
+export default class GoodsAttributeClass extends ModelClass {
+
+    static belongsToDefines = [];
+
+    static addBelongTo = (type, as, foreignKey) => {
+        GoodsAttributeClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
+    };
 
     get name() {
-        return 'GoodsCategory';
+        return 'GoodsAttribute';
+    }
+
+    get belongsToDefine() {
+        return GoodsAttributeClass.belongsToDefines;
     }
 
     get defaultOptions() {
         return {
             schema: 'public',
 
-            tableName: 'goods_category',
+            tableName: 'goods_attribute',
 
             timestamps: true,
 
@@ -43,17 +53,17 @@ export default class GoodsCategoryClass extends ModelClass {
             name: {
                 type: Sequelize.STRING,
                 field: 'name',
-                allowNull: false
+                allowNull: ''
             },
-            sort: {
-                type: Sequelize.INTEGER,
-                field: 'sort',
+            options: {
+                type: Sequelize.STRING,
+                field: 'options',
                 allowNull: false,
-                defaultValue: 1
+                defaultValue: ''
             },
-            level: {
-                type: Sequelize.INTEGER,
-                field: 'level',
+            revoked: {
+                type: Sequelize.BOOLEAN,
+                field: 'revoked',
                 allowNull: false,
                 defaultValue: 1
             },
@@ -65,6 +75,6 @@ export default class GoodsCategoryClass extends ModelClass {
     }
 
     constructor(provider, options) {
-         super(provider, options);
+        super(provider, options);
     }
 }

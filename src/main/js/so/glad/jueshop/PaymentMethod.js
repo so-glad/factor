@@ -2,24 +2,34 @@
 
 /**
  * @author palmtale
- * @since 2017/5/30.
+ * @since 2017/5/31.
  */
 
 
 import Sequelize from 'sequelize';
 import ModelClass from '../ModelClass'
 
-export default class GoodsCategoryClass extends ModelClass {
+export default class PaymentMethodClass extends ModelClass {
+
+    static belongsToDefines = [];
+
+    static addBelongTo = (type, as, foreignKey) => {
+        PaymentMethodClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
+    };
 
     get name() {
-        return 'GoodsCategory';
+        return 'PaymentMethod';
+    }
+
+    get belongsToDefine() {
+        return PaymentMethodClass.belongsToDefines;
     }
 
     get defaultOptions() {
         return {
             schema: 'public',
 
-            tableName: 'goods_category',
+            tableName: 'payment_method',
 
             timestamps: true,
 
@@ -45,26 +55,21 @@ export default class GoodsCategoryClass extends ModelClass {
                 field: 'name',
                 allowNull: false
             },
-            sort: {
-                type: Sequelize.INTEGER,
-                field: 'sort',
-                allowNull: false,
-                defaultValue: 1
-            },
-            level: {
-                type: Sequelize.INTEGER,
-                field: 'level',
-                allowNull: false,
-                defaultValue: 1
-            },
-            comment: {
+            mode: {
                 type: Sequelize.STRING,
-                field: 'comment'
+                field: 'mode',
+                allowNull: false
+            },
+            revoked: {
+                type: Sequelize.BOOLEAN,
+                field: 'revoked',
+                allowNull: false,
+                defaultValue: false
             }
         };
     }
 
     constructor(provider, options) {
-         super(provider, options);
+        super(provider, options);
     }
 }

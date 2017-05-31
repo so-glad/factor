@@ -2,7 +2,7 @@
 
 /**
  * @author palmtale
- * @since 2017/5/30.
+ * @since 2017/5/31.
  */
 
 
@@ -11,27 +11,27 @@ import Sequelize from 'sequelize';
 
 import ModelClass from '../ModelClass';
 
-export default class PromotionClass extends ModelClass {
+export default class GoodsPromotionClass extends ModelClass {
 
     static belongsToDefines = [];
 
     static addBelongTo = (type, as, foreignKey) => {
-        PromotionClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
+        GoodsPromotionClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
     };
 
     get name() {
-        return 'PromotionClass';
+        return 'GoodsPromotion';
     }
 
     get belongsToDefine() {
-        return PromotionClass.belongsToDefines;
+        return GoodsPromotionClass.belongsToDefines;
     }
 
     get defaultOptions() {
         return {
             schema: 'public',
 
-            tableName: 'promotion',
+            tableName: 'goods_promotion',
 
             timestamps: true,
 
@@ -45,7 +45,7 @@ export default class PromotionClass extends ModelClass {
 
     get fieldsDefine() {
         return {
-            id: {
+            userId: {
                 type: Sequelize.BIGINT,
                 primaryKey: true,
                 autoIncrement: false,

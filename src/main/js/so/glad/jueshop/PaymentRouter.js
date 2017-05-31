@@ -2,34 +2,34 @@
 
 /**
  * @author palmtale
- * @since 2017/5/29.
+ * @since 2017/5/31.
  */
 
 
 import Sequelize from 'sequelize';
 import ModelClass from '../ModelClass'
 
-export default class GoodsClass extends ModelClass {
+export default class PaymentRouterClass extends ModelClass {
 
     static belongsToDefines = [];
 
     static addBelongTo = (type, as, foreignKey) => {
-        GoodsClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
+        PaymentRouterClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
     };
 
     get name() {
-        return 'Goods';
+        return 'PaymentRouter';
     }
 
     get belongsToDefine() {
-        return GoodsClass.belongsToDefines;
+        return PaymentRouterClass.belongsToDefines;
     }
 
     get defaultOptions() {
         return {
             schema: 'public',
 
-            tableName: 'goods',
+            tableName: 'payment_router',
 
             timestamps: true,
 
@@ -55,31 +55,19 @@ export default class GoodsClass extends ModelClass {
                 field: 'name',
                 allowNull: false
             },
-            serialNumber: {
+            methodIds: {
                 type: Sequelize.STRING,
-                field: 'serial_number',
+                field: 'method_ids',
                 allowNull: false
             },
-            slogan: {
+            routerAccount: {
                 type: Sequelize.STRING,
-                field: 'slogan',
+                field: 'router_account',
                 allowNull: false
             },
-            imageUrl: {
+            routerSecret: {
                 type: Sequelize.STRING,
-                field: 'image_url'
-            },
-            price: {
-                type: Sequelize.DECIMAL(20, 2),
-                field: 'price',
-                allowNull: false,
-                defaultValue: 999999999999999999.99
-            },
-            inSale: {
-                type: Sequelize.BOOLEAN,
-                field: 'in_sale',
-                allowNull: false,
-                defaultValue: false
+                field: 'router_secret'
             },
             revoked: {
                 type: Sequelize.BOOLEAN,

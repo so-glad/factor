@@ -25,6 +25,23 @@ import OAuthUserClass from './OAuthUser';
 
 export default class {
 
+    static ProjectClass = ProjectClass;
+    static UserAgentClass = UserAgentClass;
+    static RoleClass = RoleClass;
+    static UserClass = UserClass;
+    static CurrencyClass = CurrencyClass;
+    static RegionClass = RegionClass;
+    static LanguageClass = LanguageClass;
+    static LocaleClass = LocaleClass;
+    static CompanyClass = CompanyClass;
+
+    static OAuthClientClass = OAuthClientClass;
+    static OAuthCodeClass = OAuthCodeClass;
+    static OAuthTokenClass = OAuthTokenClass;
+    static OAuthProviderClass = OAuthProviderClass;
+    static OAuthAccessClass = OAuthAccessClass;
+    static OAuthUserClass = OAuthUserClass;
+
     _models = {};
 
     get models () {
@@ -82,20 +99,4 @@ export default class {
         this._models.OAuthProvider = OAuthProvider;
     };
 
-    ProjectClass = ProjectClass;
-    UserAgentClass = UserAgentClass;
-    RoleClass = RoleClass;
-    UserClass = UserClass;
-    CurrencyClass = CurrencyClass;
-    RegionClass = RegionClass;
-    LanguageClass = LanguageClass;
-    LocaleClass = LocaleClass;
-    CompanyClass = CompanyClass;
-
-    OAuthClientClass = OAuthClientClass;
-    OAuthCodeClass = OAuthCodeClass;
-    OAuthTokenClass = OAuthTokenClass;
-    OAuthProviderClass = OAuthProviderClass;
-    OAuthAccessClass = OAuthAccessClass;
-    OAuthUserClass = OAuthUserClass;
 }
