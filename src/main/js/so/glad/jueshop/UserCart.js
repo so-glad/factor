@@ -37,9 +37,7 @@ export default class UserCartClass extends ModelClass {
 
             paranoid: false,
 
-            underscored: true,
-
-            defaultScope: {revoked: false}
+            underscored: true
         };
     }
 

@@ -38,7 +38,7 @@ export default class OAuthClientClass extends ModelClass {
 
             underscored: true,
 
-            defaultScope: {revoked: false}
+            defaultScope: {where: {revoked: false}}
         };
     }
 

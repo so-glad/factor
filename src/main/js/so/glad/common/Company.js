@@ -39,7 +39,7 @@ export default class CompanyClass extends ModelClass {
 
             underscored: true,
 
-            defaultScope: {revoked: false}
+            defaultScope: {where: {revoked: false}}
         };
     }
 

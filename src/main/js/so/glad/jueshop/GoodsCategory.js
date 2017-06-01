@@ -27,7 +27,8 @@ export default class GoodsCategoryClass extends ModelClass {
 
             underscored: true,
 
-            defaultScope: {revoked: false}
+            defaultScope: {order: ['sort']},
+
         };
     }
 

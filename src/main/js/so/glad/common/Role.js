@@ -57,7 +57,7 @@ export default class RoleClass extends ModelClass {
 
             underscored: true,
 
-            defaultScope: {revoked: false}
+            defaultScope: {where: {revoked: false}}
         };
     }
 

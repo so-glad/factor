@@ -42,7 +42,7 @@ export default class OAuthTokenClass extends ModelClass {
 
             underscored: true,
 
-            defaultScope: {revoked: false}
+            defaultScope: {where: {revoked: false}}
         };
     }
 

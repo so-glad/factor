@@ -2,36 +2,33 @@
 
 /**
  * @author palmtale
- * @since 2017/5/28.
+ * @since 2017/6/1.
  */
 
-
 import Sequelize from 'sequelize';
+import ModelClass from '../ModelClass'
 
-
-import ModelClass from '../ModelClass';
-
-export default class CurrencyClass extends ModelClass {
+export default class GoodsTagClass extends ModelClass {
 
     static belongsToDefines = [];
 
     static addBelongTo = (type, as, foreignKey) => {
-        CurrencyClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
+        GoodsTagClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey})
     };
 
     get name() {
-        return 'Currency';
+        return 'GoodsTag';
     }
 
     get belongsToDefine() {
-        return CurrencyClass.belongsToDefines;
+        return GoodsTagClass.belongsToDefines;
     }
 
     get defaultOptions() {
         return {
             schema: 'public',
 
-            tableName: 'currency',
+            tableName: 'goods_tag',
 
             timestamps: true,
 
@@ -54,24 +51,20 @@ export default class CurrencyClass extends ModelClass {
             },
             name: {
                 type: Sequelize.STRING,
-                field: 'name'
+                field: 'name',
+                allowNull: false
             },
-            code: {
+            type: {
                 type: Sequelize.STRING,
-                field: 'code'
+                field: 'type',
+                allowNull: false,
+                defaultValue: 'customer'
             },
             revoked: {
                 type: Sequelize.BOOLEAN,
                 field: 'revoked',
+                allowNull: false,
                 defaultValue: false
-            },
-            symbol: {
-                type: Sequelize.STRING,
-                field: 'symbol'
-            },
-            comment: {
-                type: Sequelize.STRING,
-                field: 'comment'
             }
         };
     }

@@ -10,6 +10,7 @@ import UserAddressClass from './UserAddress';
 import UserCartClass from './UserCart';
 import GoodsCategoryClass from './GoodsCategory';
 import GoodsClass from './Goods';
+import GoodsTagClass from './GoodsTag';
 import GoodsAttributeClass from './GoodsAttribute';
 
 import PaymentRouterClass from './PaymentRouter';
@@ -27,6 +28,7 @@ export default class JueShop {
     static GoodsCategoryClass = GoodsCategoryClass;
     static GoodsClass = GoodsClass;
     static GoodsAttributeClass = GoodsAttributeClass;
+    static GoodsTagClass = GoodsTagClass;
     static PaymentRouterClass = PaymentRouterClass;
     static PaymentMethodClass = PaymentMethodClass;
     static ShipmentMethodClass = ShipmentMethodClass;
@@ -62,6 +64,9 @@ export default class JueShop {
         GoodsAttributeClass.addBelongTo(Goods.delegate, 'goods', 'goods_id');
         const GoodsAttribute = new GoodsAttributeClass(provider, options);
         this._models.GoodsAttribute = GoodsAttribute;
+
+        const GoodsTag = new GoodsTagClass(provider, options);
+        this._models.GoodsTag = GoodsTag;
 
         const PaymentRouter = new PaymentRouterClass(provider, options);
         this._models.PaymentRouter = PaymentRouter;

@@ -35,9 +35,7 @@ export default class OrderClass extends ModelClass {
 
             paranoid: false,
 
-            underscored: true,
-
-            defaultScope: {revoked: false}
+            underscored: true
         };
     }
 

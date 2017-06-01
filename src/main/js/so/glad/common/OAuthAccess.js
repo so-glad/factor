@@ -15,8 +15,8 @@ export default class OAuthAccessClass extends ModelClass {
 
     static belongsToDefines = [];
 
-    static addBelongTo = (type, as, foreignKey) => {
-        OAuthAccessClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey});
+    static addBelongTo = (type, as, foreignKey, targetKey) => {
+        OAuthAccessClass.belongsToDefines.push({type: type, as: as, foreignKey: foreignKey, targetKey: targetKey});
     };
 
     get name() {
