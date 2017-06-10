@@ -5,8 +5,8 @@
  * @since 2017/5/29.
  */
 
-import Common from './lib/common/index';
-import JueShop from './lib/jueshop/index';
+import Common from './common/index';
+import JueShop from './jueshop/index';
 
 exports = module.exports = {
     Common: Common,

@@ -15,6 +15,7 @@ import RegionClass from './Region';
 import LanguageClass from './Language';
 import LocaleClass from './Locale';
 import CompanyClass from './Company';
+import FileClass from './File';
 
 import OAuthClientClass from './OAuthClient';
 import OAuthCodeClass from './OAuthCode';
@@ -41,6 +42,7 @@ export default class {
     static OAuthProviderClass = OAuthProviderClass;
     static OAuthAccessClass = OAuthAccessClass;
     static OAuthUserClass = OAuthUserClass;
+    static FileClass = FileClass;
 
     _models = {};
 
@@ -80,6 +82,9 @@ export default class {
         CompanyClass.addBelongTo(Currency.delegate, 'currency', 'currency_id');
         const Company = new CompanyClass(provider, options);
         this._models.Company = Company;
+
+        const File = new FileClass(provider, options);
+        this._models.File = File;
 
         OAuthClientClass.addBelongTo(User.delegate, 'user', 'user_id');
         const OAuthClient = new OAuthClientClass(provider, options);

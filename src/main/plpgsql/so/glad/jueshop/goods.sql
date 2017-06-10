@@ -12,7 +12,7 @@ CREATE TABLE public.goods
     id            BIGINT                 NOT NULL DEFAULT nextval('public.table_goods_id_seq' :: CHARACTER VARYING),
     serial_number CHARACTER VARYING(255) NOT NULL,
     name          CHARACTER VARYING(255) NOT NULL,
-    slogan        CHARACTER VARYING(255) NOT NULL,
+    summary        CHARACTER VARYING(255) NOT NULL,
     image_url     CHARACTER VARYING(255) NOT NULL,
     price         DECIMAL(20, 2) NOT NULL DEFAULT 999999999999999999.99,
     in_sale       BOOLEAN                NOT NULL DEFAULT FALSE,

@@ -60,9 +60,9 @@ export default class GoodsClass extends ModelClass {
                 field: 'serial_number',
                 allowNull: false
             },
-            slogan: {
+            summary: {
                 type: Sequelize.STRING,
-                field: 'slogan',
+                field: 'summary',
                 allowNull: false
             },
             imageUrl: {

@@ -77,6 +77,11 @@ export default class UserAddressClass extends ModelClass {
                 field: 'sort',
                 allowNull: false,
                 defaultValue: 1
+            },
+            revoked: {
+                type: Sequelize.BOOLEAN,
+                field: 'revoked',
+                defaultValue: false
             }
         };
     }

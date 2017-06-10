@@ -2,7 +2,7 @@
 
 /**
  * @author palmtale
- * @since 2017/5/28.
+ * @since 2017/6/9.
  */
 
 
@@ -11,17 +11,17 @@ import Sequelize from 'sequelize';
 
 import ModelClass from '../ModelClass';
 
-export default class ProjectClass extends ModelClass {
+export default class CurrencyClass extends ModelClass {
 
     get name() {
-        return 'Project';
+        return 'File';
     }
 
     get defaultOptions() {
         return {
             schema: 'public',
 
-            tableName: 'project',
+            tableName: 'file',
 
             timestamps: true,
 
@@ -44,17 +44,40 @@ export default class ProjectClass extends ModelClass {
             },
             name: {
                 type: Sequelize.STRING,
-                field: 'name'
+                field: 'name',
+                allowNull: false
             },
-            sign: {
+            contentType: {
                 type: Sequelize.STRING,
-                field: 'sign'
-            },
-            types: {
-                type: Sequelize.STRING,
-                field: 'types',
+                field: 'content_type',
                 allowNull: false,
-                defaultValue: 'web'
+                defaultValue: 'text/plain'
+            },
+            contentLength: {
+                type: Sequelize.INTEGER,
+                field: 'content_length',
+                allowNull: false,
+                defaultValue: 0
+            },
+            hashType: {
+                type: Sequelize.STRING,
+                field: 'hash_type',
+                allowNull: false,
+                defaultValue: 'sha256'
+            },
+            hashCode: {
+                type: Sequelize.STRING,
+                field: 'hash_code',
+                allowNull: false
+            },
+            url: {
+                type: Sequelize.STRING,
+                field: 'url'
+            },
+            revoked: {
+                type: Sequelize.BOOLEAN,
+                field: 'revoked',
+                defaultValue: false
             },
             comment: {
                 type: Sequelize.STRING,

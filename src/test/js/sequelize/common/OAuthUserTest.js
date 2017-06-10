@@ -9,7 +9,7 @@
 import chai from "chai";
 
 import context from "../context";
-import OAuthUserClass from '../../lib/common/OAuthUser';
+import OAuthUserClass from '../../../lib/sequelize/common/OAuthUser';
 
 chai.should();
 

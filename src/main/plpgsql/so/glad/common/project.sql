@@ -13,6 +13,7 @@ CREATE TABLE public.project
   name       CHARACTER VARYING(255)      NOT NULL,
   sign       CHARACTER VARYING(255)      NOT NULL,
   types      CHARACTER VARYING(255)    NOT NULL DEFAULT 'web',
+  revoked    BOOLEAN                     NOT NULL DEFAULT FALSE,
   comment    CHARACTER VARYING(255),
   created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
   updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,

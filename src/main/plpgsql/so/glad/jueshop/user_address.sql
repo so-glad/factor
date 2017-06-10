@@ -16,6 +16,7 @@ CREATE TABLE public.user_address
     contact    CHARACTER VARYING(255) NOT NULL,
     tel_number CHARACTER VARYING(255) NOT NULL,
     sort       INTEGER NOT NULL DEFAULT 1,
+    revoked    BOOLEAN                     NOT NULL DEFAULT FALSE,
     user_id    BIGINT NOT NULL,
     region_id  BIGINT ,
     created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
