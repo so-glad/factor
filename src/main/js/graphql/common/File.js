@@ -9,17 +9,18 @@
 const def = `
 
 type File implements Model {
-  comment: String!
-  contentType: String!
-  createdAt: DateTime!
-  hashType: String!
-  id: ID!
-  name: String!
-  revoked: Boolean!
-  secret: String!
-  size: Int!
-  updatedAt: DateTime!
-  url: String!
+    id: ID!
+    name: String!
+    revoked: Boolean!
+    
+    comment: String!
+    contentType: String!
+    createdAt: DateTime!
+    hashType: String!
+    secret: String!
+    size: Int!
+    updatedAt: DateTime!
+    url: String!
 }
 
 # An edge in a connection.
