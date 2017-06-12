@@ -13,7 +13,6 @@ type Currency implements Model {
     code: String!
     name: String!
     symbol: String!
-    revoked: Boolean!
     comment: String!
     createdAt: DateTime!
     updatedAt: DateTime!
@@ -43,6 +42,20 @@ type CurrencyConnection {
 input CurrencyFilter {
     AND: [CurrencyFilter!]
     OR: [CurrencyFilter!]
+    id: ID
+    id_not: ID
+    id_in: [ID!]
+    id_not_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_gt: ID
+    id_gte: ID
+    id_contains: ID
+    id_not_contains: ID
+    id_starts_with: ID
+    id_not_starts_with: ID
+    id_ends_with: ID
+    id_not_ends_with: ID
     code: String
     code_not: String
     code_in: [String!]
@@ -57,6 +70,34 @@ input CurrencyFilter {
     code_not_starts_with: String
     code_ends_with: String
     code_not_ends_with: String
+    name: String
+    name_not: String
+    name_in: [String!]
+    name_not_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_gt: String
+    name_gte: String
+    name_contains: String
+    name_not_contains: String
+    name_starts_with: String
+    name_not_starts_with: String
+    name_ends_with: String
+    name_not_ends_with: String
+    symbol: String
+    symbol_not: String
+    symbol_in: [String!]
+    symbol_not_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_contains: String
+    symbol_not_contains: String
+    symbol_starts_with: String
+    symbol_not_starts_with: String
+    symbol_ends_with: String
+    symbol_not_ends_with: String
     comment: String
     comment_not: String
     comment_in: [String!]
@@ -79,50 +120,6 @@ input CurrencyFilter {
     createdAt_lte: DateTime
     createdAt_gt: DateTime
     createdAt_gte: DateTime
-    id: ID
-    id_not: ID
-    id_in: [ID!]
-    id_not_in: [ID!]
-    id_lt: ID
-    id_lte: ID
-    id_gt: ID
-    id_gte: ID
-    id_contains: ID
-    id_not_contains: ID
-    id_starts_with: ID
-    id_not_starts_with: ID
-    id_ends_with: ID
-    id_not_ends_with: ID
-    name: String
-    name_not: String
-    name_in: [String!]
-    name_not_in: [String!]
-    name_lt: String
-    name_lte: String
-    name_gt: String
-    name_gte: String
-    name_contains: String
-    name_not_contains: String
-    name_starts_with: String
-    name_not_starts_with: String
-    name_ends_with: String
-    name_not_ends_with: String
-    revoked: Boolean
-    revoked_not: Boolean
-    symbol: String
-    symbol_not: String
-    symbol_in: [String!]
-    symbol_not_in: [String!]
-    symbol_lt: String
-    symbol_lte: String
-    symbol_gt: String
-    symbol_gte: String
-    symbol_contains: String
-    symbol_not_contains: String
-    symbol_starts_with: String
-    symbol_not_starts_with: String
-    symbol_ends_with: String
-    symbol_not_ends_with: String
     updatedAt: DateTime
     updatedAt_not: DateTime
     updatedAt_in: [DateTime!]
@@ -134,72 +131,66 @@ input CurrencyFilter {
 }
 
 enum CurrencyOrderBy {
+    id_ASC
+    id_DESC
     code_ASC
     code_DESC
+    name_ASC
+    name_DESC
+    symbol_ASC
+    symbol_DESC
     comment_ASC
     comment_DESC
     createdAt_ASC
     createdAt_DESC
-    id_ASC
-    id_DESC
-    name_ASC
-    name_DESC
-    revoked_ASC
-    revoked_DESC
-    symbol_ASC
-    symbol_DESC
     updatedAt_ASC
     updatedAt_DESC
 }
 
 input CreateCurrency {
     code: String!
-    comment: String!
     name: String!
-    revoked: Boolean
     symbol: String!
+    comment: String!
 }
 
 input CreateCurrencyInput {
     code: String!
-    comment: String!
     name: String!
-    revoked: Boolean
     symbol: String!
+    comment: String!
     clientMutationId: String!
 }
 
 type CreateCurrencyPayload {
     viewer: Viewer!
-    clientMutationId: String!
     currency: Currency
     edge: CurrencyEdge
+    clientMutationId: String!
 }
 
 input UpdateCurrency {
-    code: String
-    comment: String
     id: ID!
+    code: String
     name: String
-    revoked: Boolean
     symbol: String
+    comment: String
 }
 
 input UpdateCurrencyInput {
-    code: String
-    comment: String
     id: ID!
+    code: String
     name: String
-    revoked: Boolean
     symbol: String
+    comment: String
     clientMutationId: String!
 }
 
 type UpdateCurrencyPayload {
     viewer: Viewer!
-    clientMutationId: String!
     currency: Currency
     edge: CurrencyEdge
+    clientMutationId: String!
 }
 
 input UpdateOrCreateCurrencyInput {
@@ -210,35 +201,35 @@ input UpdateOrCreateCurrencyInput {
 
 type UpdateOrCreateCurrencyPayload {
     viewer: Viewer!
-    clientMutationId: String!
     currency: Currency
     edge: CurrencyEdge
+    clientMutationId: String!
 }
 
-input DeleteCurrencyInput {
+input RevokeCurrencyInput {
     id: ID!
     clientMutationId: String!
 }
 
-type DeleteCurrencyPayload {
+type RevokeCurrencyPayload {
     viewer: Viewer!
-    clientMutationId: String!
     currency: Currency
     edge: CurrencyEdge
-    deletedId: ID
+    revokedId: ID
+    clientMutationId: String!
 }
 `;
 
 const viewer = `
-    Currency(code: String, id: ID, name: String, symbol: String): Currency
-    allCurrencies(filter: CurrencyFilter, orderBy: CurrencyOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): CurrencyConnection! 
+    Currency(id: ID, code: String, name: String, symbol: String): Currency
+    allCurrencies(filter: CurrencyFilter, orderBy: CurrencyOrderBy, before: String, after: String, skip: Int, first: Int, last: Int): CurrencyConnection! 
 `;
 
 const mutation = `
     createCurrency(input: CreateCurrencyInput!): CreateCurrencyPayload
     updateCurrency(input: UpdateCurrencyInput!): UpdateCurrencyPayload
     updateOrCreateCurrency(input: UpdateOrCreateCurrencyInput!): UpdateOrCreateCurrencyPayload
-    deleteCurrency(input: DeleteCurrencyInput!): DeleteCurrencyPayload
+    revokeCurrency(input: RevokeCurrencyInput!): RevokeCurrencyPayload
 `;
 
 export default {def, viewer, mutation};
