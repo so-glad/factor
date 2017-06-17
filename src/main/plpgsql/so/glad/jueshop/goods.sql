@@ -18,6 +18,7 @@ CREATE TABLE public.goods
     in_sale       BOOLEAN                NOT NULL DEFAULT FALSE,
     revoked       BOOLEAN                NOT NULL DEFAULT FALSE,
     category_id   BIGINT,
+    view_times    INT NOT NULL DEFAULT 0,
     user_id       BIGINT,
     created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,
     updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT current_timestamp,

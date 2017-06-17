@@ -17,6 +17,7 @@ type UserAddress implements Model {
     contact: String!
     telNumber: String!
     sort: Int!
+    user(filter: UserFilter): User
     createdAt: DateTime!
     updatedAt: DateTime!
 }
@@ -185,7 +186,7 @@ input CreateUserAddress {
     telNumber: String!
     sort: Int
     regionId: ID
-    region: Region
+    userId: ID
 }
 
 input CreateUserAddressInput {
@@ -196,7 +197,7 @@ input CreateUserAddressInput {
     telNumber: String!
     sort: Int
     regionId: ID
-    region: Region
+    userId: ID
     clientMutationId: String!
 }
 
@@ -205,6 +206,7 @@ type CreateUserAddressPayload {
     userAddress: UserAddress
     edge: UserAddressEdge
     region: Region
+    user: User
     clientMutationId: String!
 }
 
@@ -217,7 +219,6 @@ input UpdateUserAddress {
     telNumber: String!
     sort: Int
     regionId: ID
-    region: Region
 }
 
 input UpdateUserAddressInput {
@@ -229,7 +230,7 @@ input UpdateUserAddressInput {
     telNumber: String!
     sort: Int
     regionId: ID
-    region: Region
+    userId: ID
     clientMutationId: String!
 }
 
@@ -239,6 +240,7 @@ type UpdateUserAddressPayload {
     userAddress: UserAddress
     edge: UserAddressEdge
     region: Region
+    user: User
 }
 
 input UpdateOrCreateUserAddressInput {
@@ -265,6 +267,7 @@ type RevokeUserAddressPayload {
     userAddress: UserAddress
     edge: UserAddressEdge
     region: Region
+    user: User
     revokedId: ID
     clientMutationId: String!
 }

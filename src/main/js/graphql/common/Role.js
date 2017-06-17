@@ -138,16 +138,12 @@ input CreateRole {
     code: String!
     name: String!
     comment: String!
-    usersIds: [ID!]
-    users: [RoleusersUser!]
 }
 
 input CreateRoleInput {
     code: String!
     name: String!
     comment: String!
-    usersIds: [ID!]
-    users: [RoleusersUser!]
     clientMutationId: String!
 }
 
@@ -163,8 +159,6 @@ input UpdateRole {
     code: String
     name: String
     comment: String
-    usersIds: [ID!]
-    users: [RoleusersUser!]
 }
 
 input UpdateRoleInput {
@@ -172,8 +166,6 @@ input UpdateRoleInput {
     code: String
     name: String
     comment: String
-    usersIds: [ID!]
-    users: [RoleusersUser!]
     clientMutationId: String!
 }
 

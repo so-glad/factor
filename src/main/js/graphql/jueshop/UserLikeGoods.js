@@ -103,4 +103,3 @@ const mutation = `
 `;
 
 export default {def, viewer, mutation};
-

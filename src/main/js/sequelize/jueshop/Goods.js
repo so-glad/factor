@@ -81,6 +81,12 @@ export default class GoodsClass extends ModelClass {
                 allowNull: false,
                 defaultValue: false
             },
+            viewTimes: {
+                type: Sequelize.INTEGER,
+                field: 'view_times',
+                allowNull: false,
+                defaultValue: 0
+            },
             revoked: {
                 type: Sequelize.BOOLEAN,
                 field: 'revoked',

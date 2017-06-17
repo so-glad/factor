@@ -87,13 +87,13 @@ enum UserCartOrderBy {
 input CreateUserCart {
     userId: ID
     goodsesIds: [ID!]
-    goodses: [UserCartgoodsesGoods!]
+    goodses: [Goods!]
 }
 
 input CreateUserCartInput {
     userId: ID
     goodsesIds: [ID!]
-    goodses: [UserCartgoodsesGoods!]
+    goodses: [Goods!]
     clientMutationId: String!
 }
 
@@ -109,14 +109,14 @@ input UpdateUserCart {
     id: ID!
     userId: ID
     goodsesIds: [ID!]
-    goodses: [UserCartgoodsesGoods!]
+    goodses: [Goods!]
 }
 
 input UpdateUserCartInput {
     id: ID!
     userId: ID
     goodsesIds: [ID!]
-    goodses: [UserCartgoodsesGoods!]
+    goodses: [Goods!]
     clientMutationId: String!
 }
 

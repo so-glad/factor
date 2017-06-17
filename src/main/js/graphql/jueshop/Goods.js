@@ -272,7 +272,7 @@ const mutation = `
     createGoods(input: CreateGoodsInput!): CreateGoodsPayload
     updateGoods(input: UpdateGoodsInput!): UpdateGoodsPayload
     updateOrCreateGoods(input: UpdateOrCreateGoodsInput!): UpdateOrCreateGoodsPayload
-    deleteGoods(input: DeleteGoodsInput!): DeleteGoodsPayload  
+    revokeGoods(input: RevokeGoodsInput!): RevokeGoodsPayload  
 `;
 
 export default {def, viewer, mutation};

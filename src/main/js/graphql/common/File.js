@@ -286,7 +286,7 @@ const mutation = `
     createFile(input: CreateFileInput!): CreateFilePayload
     updateFile(input: UpdateFileInput!): UpdateFilePayload
     updateOrCreateFile(input: UpdateOrCreateFileInput!): UpdateOrCreateFilePayload
-    revokeFile(input: DeleteFileInput!): RevokeFilePayload
+    revokeFile(input: RevokeFileInput!): RevokeFilePayload
 `;
 
 export default {def, viewer, mutation};

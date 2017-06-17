@@ -201,7 +201,6 @@ input CreateUser {
     mobile: String!
     password: String!
     roleId: ID
-    role: UserroleRole
 }
 
 input CreateUserInput {
@@ -212,19 +211,18 @@ input CreateUserInput {
     mobile: String!
     password: String!
     roleId: ID
-    role: UserroleRole
     clientMutationId: String!
 }
 
 input SignupUserInput {
     username: String!
+    password: String!
     alias: String!
     avatar: String!
     email: String!
     emailVerified: Boolean
     mobile: String!
     mobileVerified: Boolean
-    password: String!
     clientMutationId: String!
 }
 
@@ -246,7 +244,6 @@ input UpdateUser {
     password: String
     status: String
     roleId: ID
-    role: UserroleRole
 }
 
 input UpdateUserInput {
@@ -261,7 +258,6 @@ input UpdateUserInput {
     password: String
     status: String
     roleId: ID
-    role: UserroleRole
     clientMutationId: String!
 }
 
@@ -301,61 +297,11 @@ type RevokeUserPayload {
     clientMutationId: String!
 }
 
-input RoleusersUser {
-    username: String!
-    alias: String!
-    avatar: String!
-    email: String!
-    emailVerified: Boolean
-    mobile: String!
-    mobileVerified: Boolean
-    status: String!
-}
-
-input UserroleRole {
-  code: String!
-  comment: String!
-  name: String!
-  usersIds: [ID!]
-  users: [User!]
-}
-
-type AddToUserOnRolePayload {
-    viewer: Viewer!
-    usersUser: User
-    roleRole: Role
-    usersUserEdge: UserEdge
-    roleRoleEdge: RoleEdge
-    clientMutationId: String!
-}
-
-input AddToUserOnRoleUserInput {
-    roleRoleId: ID!
-    usersUserId: ID!
-    clientMutationId: String!
-}
-
-type RemoveFromUserOnRolePayload {
-    viewer: Viewer!
-    clientMutationId: String!
-    usersUser: User
-    roleRole: Role
-    usersUserEdge: UserEdge
-    roleRoleEdge: RoleEdge
-}
-
-input RemoveFromUserOnRoleUserInput {
-    roleRoleId: ID!
-    usersUserId: ID!
-    clientMutationId: String!
-}
-
 type AuthenticatePayload {
     user: User
     accessToken: String!
     expiresIn: Int!
     refreshToken: String!
-    remindIn: Int!
 }
 `;
 
@@ -372,8 +318,6 @@ const mutation = `
     updateUser(input: UpdateUserInput!): UpdateUserPayload
     updateOrCreateUser(input: UpdateOrCreateUserInput!): UpdateOrCreateUserPayload
     revokeUser(input: RevokeUserInput!): RevokeUserPayload
-    addToUserOnRole(input: AddToUserOnRoleUserInput!): AddToUserOnRolePayload
-    removeFromUserOnRole(input: RemoveFromUserOnRoleUserInput!): RemoveFromUserOnRolePayload
 `;
 
 export default {def, viewer, mutation};

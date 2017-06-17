@@ -171,9 +171,7 @@ input CreateRegion {
     sort: Int!
     comment: String!
     parentId: ID
-    parent: RegionparentRegion
     childrenIds: [ID!]
-    children: [RegionchildrenRegion!]
 }
 
 input CreateRegionInput {
@@ -183,9 +181,7 @@ input CreateRegionInput {
     sort: Int!
     comment: String!
     parentId: ID
-    parent: RegionparentRegion
     childrenIds: [ID!]
-    children: [RegionchildrenRegion!]
     clientMutationId: String!
 }
 
@@ -205,9 +201,7 @@ input UpdateRegion {
     sort: Int
     comment: String
     parentId: ID
-    parent: RegionparentRegion
     childrenIds: [ID!]
-    children: [RegionchildrenRegion!]
 }
 
 input UpdateRegionInput {
@@ -218,9 +212,7 @@ input UpdateRegionInput {
     sort: Int
     comment: String
     parentId: ID
-    parent: RegionparentRegion
     childrenIds: [ID!]
-    children: [RegionchildrenRegion!]
     clientMutationId: String!
 }
 
@@ -258,26 +250,6 @@ type RevokeRegionPayload {
     parent: Region
     revokedId: ID
     clientMutationId: String!
-}
-
-input RegionparentRegion {
-    code: String!
-    name: String!
-    sign: String!
-    sort: Int!
-    childrenIds: [ID!]
-    children: [Region!]
-    comment: String!
-}
-
-input RegionchildrenRegion {
-    code: String!
-    name: String!
-    sign: String!
-    sort: Int!
-    childrenIds: [ID!]
-    children: [Region!]
-    comment: String!
 }
 
 type AddToRegionOnRegionPayload {
