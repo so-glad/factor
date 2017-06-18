@@ -43,6 +43,6 @@
         "sequelize": "^3.30.4"
     },
     "publishConfig": {
-        "registry": "https://pub.glad.so/repository/sonpm/"
+        "registry": "https://registry.npmjs.org/"
     }
 }
