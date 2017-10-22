@@ -7,12 +7,27 @@
 
 
 const def = `
-type UserCart implements Model {
+
+type CartGoods {
     id: ID!
-    user(filter: UserFilter): User
-    goodses(filter: GoodsFilter, orderBy: GoodsOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): GoodsConnection
+    name: String
+    category: String
+    attributes: [GoodsAttributeChosen]
+    price: Float
+    quantity: Int
+}
+
+type UserCart {
+    user: User
+    goodses: [CartGoods]
     createdAt: DateTime!
     updatedAt: DateTime!
+}
+
+input CartGoodsInput {
+    id: ID!
+    attributes: [GoodsAttributeChosen]
+    quantity: Int
 }
 
 # A connection to a list of items.
@@ -158,15 +173,12 @@ type RevokeUserCartPayload {
 `;
 
 const viewer = `
-    UserCart(id: ID): UserCart
+    cart: UserCart
     allUserCarts(filter: UserCartFilter, orderBy: UserCartOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): UserCartConnection!
 `;
 
 const mutation = `
-    createUserCart(input: CreateUserCartInput!): CreateUserCartPayload
-    updateUserCart(input: UpdateUserCartInput!): UpdateUserCartPayload
-    updateOrCreateUserCart(input: UpdateOrCreateUserCartInput!): UpdateOrCreateUserCartPayload
-    revokeUserCart(input: RevokeUserCartInput!): RevokeUserCartPayload
+    addGoodsToCart: (input CartGoodsInput): UserCart
 `;
 
 export default {def, viewer, mutation};

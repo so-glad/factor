@@ -8,6 +8,11 @@
  
 const def = `
 
+type GoodsAttributeChosen {
+    key: String!
+    value: String!
+}
+
 type GoodsAttribute implements Model {
     id: ID!
     name: String!

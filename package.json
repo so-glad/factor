@@ -1,6 +1,6 @@
 {
     "name": "factors",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A model framework defined some common models, or models in specified cases, powered by sequelize",
     "main": "lib/index.js",
     "scripts": {
@@ -12,7 +12,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/so-glad/factor.git"
+        "url": "git+https://github.com/so-glad/factors.git"
     },
     "keywords": [
         "bean",
@@ -21,13 +21,13 @@
     "author": "palmtale <palmtale@glad.so>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/so-glad/factor/issues"
+        "url": "https://github.com/so-glad/factors/issues"
     },
-    "homepage": "https://github.com/so-glad/factor#readme",
+    "homepage": "https://github.com/so-glad/factors#readme",
     "devDependencies": {
         "babel-cli": "^6.24.1",
         "babel-eslint": "^7.2.3",
-        "babel-plugin-transform-runtime": "^6.",
+        "babel-plugin-transform-runtime": "^6.23.0",
         "babel-polyfill": "^6.23.0",
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-stage-0": "^6.24.1",
